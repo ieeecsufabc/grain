@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
     // Salvando path atual
-    var loc = window.location.pathname;
+    var loc = location.pathname;
 
     // Construindo path até a pasta com os textos traduzidos
     if(loc == "/" || loc == "/grain"){
