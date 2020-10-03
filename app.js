@@ -1,11 +1,13 @@
 $(document).ready(function(){
 
     // Salvando path atual
-    var loc = location.pathname;
+    var loc = window.location.pathname;
+    console.log(loc)
 
     // Construindo path até a pasta com os textos traduzidos
-    if(loc == "/" || loc == "/grain"){
+    if(loc == "/" || loc == "/grain" || loc == ""){
         localizationPath = "localization/web";
+        console.log("True")
     } else {
         localizationPath = "../localization/web"
     }
@@ -31,12 +33,12 @@ $(document).ready(function(){
         // Localização forçada
         $("[data-localize]").localize(localizationPath, { language: "en" })
         // Salva cookie
-        document.cookie = "language=en; path=/";
+        document.cookie = "language=en; path=./";
     });
     $("#br").click(function(){
         // Localização forçada
         $("[data-localize]").localize(localizationPath, { language: "pt-BR" })
         // Salva cookie
-        document.cookie = "language=pt-BR; path=/";
+        document.cookie = "language=pt-BR; path=./";
     });
 });
