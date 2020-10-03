@@ -6,7 +6,7 @@ $(document).ready(function(){
 
     // Construindo path até a pasta com os textos traduzidos
     if(loc == "/" || loc == "/grain" || loc == "/grain/" || loc == ""){
-        localizationPath = "localization/web";
+        localizationPath = loc + "localization/web";
         console.log("True")
     } else {
         localizationPath = "../localization/web"
@@ -20,9 +20,9 @@ $(document).ready(function(){
     if (language == "en"){
         // Localização forçada
         $("[data-localize]").localize(localizationPath, { language: "en" })
-    } else if (language == "pt-BR") {
+    } else if (language == "pt") {
         // Localização forçada
-        $("[data-localize]").localize(localizationPath, { language: "pt-BR" })
+        $("[data-localize]").localize(localizationPath, { language: "pt" })
     } else {
         // Localização automática com base na geolocalização do browser
         $("[data-localize]").localize(localizationPath)
@@ -37,8 +37,8 @@ $(document).ready(function(){
     });
     $("#br").click(function(){
         // Localização forçada
-        $("[data-localize]").localize(localizationPath, { language: "pt-BR" })
+        $("[data-localize]").localize(localizationPath, { language: "pt" })
         // Salva cookie
-        document.cookie = "language=pt-BR; path=./";
+        document.cookie = "language=pt; path=./";
     });
 });
