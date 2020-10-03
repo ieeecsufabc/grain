@@ -5,11 +5,14 @@ $(document).ready(function(){
     console.log(loc)
 
     // Construindo path até a pasta com os textos traduzidos
-    if(loc == "/" || loc == "/grain" || loc == "/grain/" || loc == ""){
-        localizationPath = loc + "localization/web";
-        console.log("True")
+    if(loc == "/" || loc == "/grain" || loc == "/grain/"){
+        localizationPath = loc+"localization/web";
+        cookiePath = loc
+        console.log("Worked");
+        console.log(localizationPath);
     } else {
-        localizationPath = "../localization/web"
+        localizationPath = "../localization/web";
+        cookiePath = "../"
     }
 
     // Carrega cookie (string "language=...")
@@ -33,12 +36,12 @@ $(document).ready(function(){
         // Localização forçada
         $("[data-localize]").localize(localizationPath, { language: "en" })
         // Salva cookie
-        document.cookie = "language=en; path=./";
+        document.cookie = "language=en; path="+cookiePath;
     });
     $("#br").click(function(){
         // Localização forçada
         $("[data-localize]").localize(localizationPath, { language: "pt" })
         // Salva cookie
-        document.cookie = "language=pt; path=./";
+        document.cookie = "language=pt; path="+cookiePath;
     });
 });
