@@ -2,13 +2,10 @@ $(document).ready(function(){
 
     // Salvando path atual
     var loc = window.location.pathname;
-    console.log(loc)
 
     // Construindo path até a pasta com os textos traduzidos
     if(loc == "/" || loc == "/grain" || loc == "/grain/"){
         localizationPath = loc+"localization/web";
-        console.log("Worked");
-        console.log(localizationPath);
     } else {
         localizationPath = "../localization/web";
     }
