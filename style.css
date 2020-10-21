@@ -72,4 +72,16 @@ footer
 {
     background-color: #006090;
     color: white;
+    font-family: 'Open Sans';
+    height: 100px;
+    padding: 20px 40px;
+}
+footer .logo{
+    float: left;
+    width: 20%;
+    position: centered;
+}
+footer .column{
+     float: left;
+     width: 20%;
 }
