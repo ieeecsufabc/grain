@@ -79,9 +79,8 @@ footer
 footer .logo{
     float: left;
     width: 20%;
-    position: centered;
 }
 footer .column{
-     float: left;
-     width: 20%;
+    float: left;
+    width: 20%;
 }
