@@ -73,12 +73,13 @@ footer
     background-color: #006090;
     color: white;
     font-family: 'Open Sans';
-    height: 100px;
+    height: 150px;
     padding: 20px 40px;
 }
 footer .logo{
     float: left;
-    width: 20%;
+    width: 50%;
+     
 }
 footer .column{
     float: left;
