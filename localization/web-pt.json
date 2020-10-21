@@ -1,9 +1,18 @@
 {
     "title":"Contagem de Grãos",
+    "navbar":{
+        "home":"Home",
+        "analysis":"Iniciar",
+        "about":"Mais Informações",
+        "bugreport":"Reportar bug",
+        "help":"Ajuda"
+    },
     "home":{
-        "desc":"Página Inicial"
+        "title":"Página Inicial"
     },
     "about":{
-        "desc":"Página de Mais Informações"
+        "title":"Mais Informações",
+        "subtitle":"Um projeto da IEEE Computer Society UFABC + Electronics Packaging Society UFABC",
+        "text": "Esse projeto consiste na utilização de técnicas de Processamento de Imagens para realizar a determinação de tamanho de grão para imagens de micrografia de metais. Essa tarefa é atualmente realizada manualmente por todos os estudantes de Engenharia na UFABC, em especial os de Engenharia de Materias. O objetivo final é a criação de um site que realize essa tarefa automaticamente e com precisão."
     }
 }
