@@ -1,0 +1,16 @@
+# .gitignore
+
+# ignore folders
+/.vscode
+/.ipynb_checkpoints
+/__pycache__
+/**/.vscode
+/**/.ipynb_checkpoints
+/**/__pycache__
+
+# ignore shortcuts
+*.ini
+*.lnk
+
+# track these files, if they exist
+!.gitignore
