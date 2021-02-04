@@ -1,0 +1,11 @@
+# Creating conda enviroment
+conda create --name flask-api python=3.6.9
+
+# Installing packages
+pip install opencv-python-headless Pillow Flask flask-cors
+
+# Generating requirements
+pip freeze > requirements.txt
+
+# Adding gunicorn to requirements
+gunicorn==20.0.4
