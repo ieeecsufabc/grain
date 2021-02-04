@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contagem de Grãos</title>
+    <link rel="stylesheet" href="style.css" />
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="wrapper" id="input-card">
+        <h1 class="process-title">Analisar</h1>
+        <div class="input-form">
+            <input type="file" id="input-image" name="input-image"/>
+            <img src="./processing.png" class="process-image" id="preview-image"/>
+            <input type="text" id="input-url" name="input-url" style="display: none"/>
+            <label id="input-submit" style="cursor: pointer;" onclick="showResults()"> Enviar </label>
+        </div>
+    </div>
+    <div class="wrapper" id="output-card">
+        <h1 class="process-title">Resultados</h1>
+        <div class="output-content">
+            <img src="./processing.png" class="process-image" id="raw-image"/>
+            <img src="./processing.png" class="process-image" id="processed-image"/>
+            <div class="output-text-wrapper">
+                <p class="output-text"><b>Número de grãos: </b> <span id="output-count"></span></p>
+                <!-- 
+                <p class="output-text"><b>Tamanho médio: </b></p>
+                <p class="output-text"><b>Densidade: </b></p>
+                 -->
+            </div>
+            <label id="input-submit" class="output-text" style="cursor: pointer;" onclick="resetResults()">Analisar outra imagem</label>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
