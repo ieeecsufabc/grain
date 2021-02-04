@@ -1,0 +1,26 @@
+# workflow git em construção
+
+git clone https://github.com/ieeecsufabc/grain/
+
+git checkout back-end # muda para branch de nome back-end
+
+git add back-end/README.md # adicionando mudanças no arquivo readme dentro da pasta backend
+
+git add back-end   # adicionando mudanças de todos os arquivos na pasta backend
+
+git commit -m "Mudanças no readme e demais arquivos da pasta back-end" # commit
+
+git push origin back-end # push no branch do back-end
+
+# create pull request
+# merge pull request
+
+git checkout back-end # muda para branch de nome back-end
+
+git fetch # download dos arquivos do branch atual
+
+git merge master      # atualiza as mudanças do master no branch back-end
+
+
+
+
