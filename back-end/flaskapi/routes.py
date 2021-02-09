@@ -9,13 +9,14 @@ from PIL import Image
 import io
 import numpy as np
 from urllib.parse import unquote
+import gc
 
 # Helper functions
 def decodeImage(input_b64):
     input_b64 = unquote(input_b64)                        # replaces characters like '%xx'
     input_b64 = input_b64.split(",",1)[1]                 # removes base64 prefix from string
-    input_dec = base64.urlsafe_b64decode(input_b64+"===") # adds padding and decode
-    input_img = np.frombuffer(input_dec, dtype=np.uint8)  # transforms to numpy array
+    input_dec = base64.urlsafe_b64decode(input_b64+"==="); del input_b64 # adds padding and decode
+    input_img = np.frombuffer(input_dec, dtype=np.uint8); del input_dec  # transforms to numpy array
     input_img = cv2.imdecode(input_img, cv2.IMREAD_COLOR) # reads image from buffer
     return input_img
 
@@ -23,9 +24,9 @@ def encodeImage(img):
     img = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)            # converts cv2 (BGR) to PIL (RBG)
     img = Image.fromarray(img.astype("uint8"))            # prepares image to save in buffer
     raw_bytes = io.BytesIO()                              # creates image buffer
-    img.save(raw_bytes, "JPEG")                           # saves image to buffer
+    img.save(raw_bytes, "JPEG"); del img                  # saves image to buffer
     raw_bytes.seek(0)                                     # sets stream position to 0
-    img_b64 = base64.b64encode(raw_bytes.read())          # encode bytes to b64 string
+    img_b64 = base64.b64encode(raw_bytes.read()); del raw_bytes # encode bytes to b64 string
     return str(img_b64)
 
 # Main processing route
@@ -34,13 +35,13 @@ def process():
     if request.method == 'POST' and "inputImage" in request.get_json():
         # decoding base64
         input_b64 = request.get_json().get('inputImage', '')
-        input_img = decodeImage(input_b64)
+        input_img = decodeImage(input_b64); del input_b64
 
         # processing        
-        out_img, result = processing(input_img)[3:]
+        out_img, result = processing_memory_fix(input_img); del input_img
 
         # encoding image to base64
-        out_b64 = encodeImage(out_img)
+        out_b64 = encodeImage(out_img); del out_img
 
         # preparing json
         out_json = { 
@@ -48,17 +49,18 @@ def process():
             'count': result,
             'outputImage': out_b64
             }
+        del out_b64
         
     elif request.method == 'GET' and "inputImage" in request.args:
         # decoding base64
         input_b64 = request.args['inputImage']
-        input_img = decodeImage(input_b64)
+        input_img = decodeImage(input_b64); del input_b64
 
         # processing        
-        out_img, result = processing(input_img)[3:]
+        out_img, result = processing_memory_fix(input_img); del input_img
 
         # encoding image to base64
-        out_b64 = encodeImage(out_img)
+        out_b64 = encodeImage(out_img); del out_img
 
         # preparing json
         out_json = { 
@@ -66,17 +68,18 @@ def process():
             'count': result,
             'outputImage': out_b64
             }
+        del out_b64
 
     else:
         print("sample")
         # opening default image
-        input_img = cv2.imread("./data/steel.jpg")
+        input_img = cv2.imread("./data/Aco224.jpg")
 
         # processing        
-        out_img, result = processing(input_img)[3:]
+        out_img, result = processing_memory_fix(input_img); del input_img
 
         # encoding image to base64
-        out_b64 = encodeImage(out_img)
+        out_b64 = encodeImage(out_img); del out_img
 
         # preparing json
         out_json = { 
@@ -84,7 +87,9 @@ def process():
             'count': result,
             'outputImage': out_b64
             }
+        del out_b64
 
+    gc.collect()
     return jsonify(out_json)
 
 '''
