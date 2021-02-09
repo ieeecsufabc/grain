@@ -1,6 +1,6 @@
 ### Link para o site funcionando:
 *Working website:*
-### [Grain Size Analysis Website](https://ieeecsufabc.github.io/grain/back-end/static/ "Grain Size Analysis Website")
+### [Grain Size Analysis Website](https://ieeecsufabc.github.io/grain/front-end/ "Grain Size Analysis Website")
 ___
 # **Projeto Determinação de Tamanho de Grãos**
 ### Um projeto da IEEE Computer Society UFABC + Electronics Packaging Society UFABC
