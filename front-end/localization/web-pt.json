@@ -9,7 +9,7 @@
     },
     "home":{
         "title":"Página Inicial",
-        "description":"Aplicação para analizar imagens de micrografias de materiais e determinar número de grãos."
+        "description":"Determinação de número de grãos em imagens de micrografias de metais."
     },
     "about":{
         "title":"Mais Informações",
