@@ -5,7 +5,7 @@ $(document).ready(function(){
     console.log(loc)
 
     // Construindo path até a pasta com os textos traduzidos
-    if(loc == "/" || loc == "/grain" || loc == "/grain/"){
+    if(loc == "/front-end/" || loc == "/grain/front-end/"){
         localizationPath = loc+"localization/web";
     } else {
         localizationPath = "../localization/web";

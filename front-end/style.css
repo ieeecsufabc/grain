@@ -39,7 +39,7 @@ main
 main article figure img
 {
     display: block;
-    width: 300px;
+    width: 600px;
     height: 300px;
     margin: auto;
 }
@@ -84,4 +84,11 @@ footer .logo{
 footer .column{
     float: left;
     width: 20%;
+}
+
+button a {
+    display: block;
+    text-align: center;
+    color: white;
+    text-decoration: none;
 }
