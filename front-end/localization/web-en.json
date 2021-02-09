@@ -9,7 +9,7 @@
     },
     "home":{
         "title":"Home Page",
-        "description":"Application to analyse metal micrograph images and determine the number of grains."
+        "description":"Grain number determination in metal micrograph images."
     },
     "about":{
         "title":"About",
