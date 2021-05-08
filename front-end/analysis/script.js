@@ -1,4 +1,44 @@
-// Element variables definitions
+"use strict";
+
+// use this url to test if the HTTP POST Request is working
+const serverURL = "https://postman-echo.com/post";
+// const serverURL = "https://grain-count-api.herokuapp.com/process";
+
+// starts tracking the submit button when the page loads
+function trackRequest() {
+    document.getElementById("submit-button")
+            .addEventListener("click", sendRequest);
+}
+document.addEventListener("DOMContentLoaded", trackRequest);
+
+function sendRequest(event) {
+    // avoid sending an empty request
+    event.preventDefault();
+
+    let headers = new Headers();
+    headers.append("Accept", "application/json");
+
+    let formData = new FormData();
+    formData.append("scale", document.getElementById("scale-field").value);
+
+    let rawImage = document.getElementById("raw-image-field").files[0];
+    formData.append("rawImage", rawImage, "raw-image.png");
+
+    let request = new Request(serverURL, {
+        method: "POST",
+        headers: headers,
+        // mode: "no-cors",
+        body: formData
+    });
+
+    console.log(request);
+
+    fetch(request)
+        .then((response) => {document.getElementById("output").textContent = "Response received from server"})
+        .catch((error) => {console.log("ERROR:", error.message)});
+}
+
+/* // Element variables definitions
 const inpFile = document.getElementById("input-image");
 const previewImage = document.getElementById("preview-image");
 const rawImage = document.getElementById("raw-image");
