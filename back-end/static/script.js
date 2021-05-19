@@ -10,7 +10,8 @@ const outputCard = document.getElementById("output-card");
 
 var resultJson;
 //const baseUrl = 'http://127.0.0.1:5000/process';
-const baseUrl = 'https://grain-count-flask-api.herokuapp.com/process'
+//const baseUrl = 'https://grain-count-flask-api.herokuapp.com/process'
+const baseUrl = 'https://grain-count-api.herokuapp.com/process'
 
 
 // Event listener for uploaded image input tag

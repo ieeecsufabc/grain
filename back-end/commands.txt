@@ -9,3 +9,9 @@ pip freeze > requirements.txt
 
 # Adding gunicorn to requirements
 gunicorn==20.0.4
+
+# Deploying on heroku
+https://cli-assets.heroku.com/heroku-x64.exe OU npm install -g heroku
+heroku login
+heroku git:remote -a grain-count-api
+git subtree push --prefix back-end heroku master
