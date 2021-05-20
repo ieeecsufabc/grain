@@ -1,0 +1,123 @@
+import cv2
+import numpy as np
+#import matplotlib.pyplot as plt
+
+# Função Auxiliar
+def getCircle(n):
+    '''kernel has size NxN'''
+    # xx and yy are 200x200 tables containing the x and y coordinates as values
+    # mgrid is a mesh creation helper
+    xx, yy = np.mgrid[:n,:n]
+    # circles contains the squared distance to the (100, 100) point
+    # we are just using the circle equation learnt at school
+    circle = (xx - np.floor(n/2)) ** 2 + (yy - np.floor(n/2)) ** 2
+    circle = circle<=np.max(circle)*.5
+    circle = np.uint8(circle)
+    return circle
+
+# Função de processamento principal, enxuta.
+def processing_memory_fix(img, parameters=None):
+    '''
+    Função de processamento principal enxuta.
+
+    A entrada é uma imagem BGR (resultado da função cv2.imread(), por exemplo); e uma lista de parâmetros opcional
+    Cada posição da lista de parâmetros corresponde a:
+        0 thresholdType = cv2.ADAPTIVE_THRESH_MEAN_C or cv2.ADAPTIVE_THRESH_GAUSSIAN_C
+        1 blockSize = 99-299
+        2 constant = 0-20
+        3 kernelSize = [3-7]
+        4 openingIt = 0-2
+        5 erosionIt = 0-5
+        6 contourMethod = cv2.CHAIN_APPROX_SIMPLE or cv2.CHAIN_APPROX_TC89_L1 or cv2.CHAIN_APPROX_TC89_KCOS 
+        7 minArea = 15-50
+    
+    A saída é uma tupla de 2 elementos:
+        img_out      = contornos coloridos aleatoriamente desenhados por cima da imagem original
+        resultado    = int representando o número de grãos contados
+    '''
+    #Default parameters
+    if parameters == None:
+        #parameters = [0,199,3,3,0,3,0,20]
+        parameters = [1, 191, 3, 5, 0, 2, 0, 41]
+    
+    #Transformação do vetor de parâmetros em variáveis com nomes informativos
+    if parameters[0] == 0: thresholdType = cv2.ADAPTIVE_THRESH_MEAN_C
+    if parameters[0] == 1: thresholdType = cv2.ADAPTIVE_THRESH_GAUSSIAN_C
+    blockSize =  parameters[1]
+    constant =   parameters[2]
+    kernelSize = parameters[3]
+    openingIt =  parameters[4]
+    erosionIt =  parameters[5]
+    if parameters[6] == 0: contourMethod = cv2.CHAIN_APPROX_SIMPLE
+    if parameters[6] == 1: contourMethod = cv2.CHAIN_APPROX_TC89_L1
+    if parameters[6] == 2: contourMethod = cv2.CHAIN_APPROX_TC89_KCOS
+    minArea =    parameters[7]
+    
+    #Conversão de uma imagem para outro sistema de cores
+    img_gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+    y_img, x_img = img_gray.shape
+
+    #Adaptivo
+    img_thresh = cv2.adaptiveThreshold(img_gray, 255, thresholdType, cv2.THRESH_BINARY, blockSize, constant) 
+    del img_gray
+    #Fechamento   
+    kernel = getCircle(kernelSize)
+    img_open = cv2.morphologyEx(img_thresh,cv2.MORPH_CLOSE,kernel, iterations = openingIt)
+    del img_thresh
+    img_open = cv2.erode(img_open, kernel, iterations=erosionIt)
+
+    #Desenhando borda na imagem
+    y,x = img_open.shape
+    color = 0
+    img_open[:,   0] = 0; img_open[:, x-1] = 0; img_open[0,   :] = 0; img_open[y-1, :] = 0
+
+    #Gerando Lista de Contornos
+    cv2MajorVersion = cv2.__version__.split(".")[0]
+    if int(cv2MajorVersion) >= 4:
+        contours, _= cv2.findContours(img_open,cv2.RETR_EXTERNAL, contourMethod)
+    else:
+        _, contours, _ = cv2.findContours(img_open,cv2.RETR_EXTERNAL, contourMethod)
+    del img_open
+
+    #Ordenando Lista de Contornos de acordo com a área
+    contours = sorted(contours, key = cv2.contourArea, reverse = True)
+
+    #Selecionando apenas contornos cuja área é maior que algum valor
+    contours = [c for c in contours if cv2.contourArea(c)>minArea]
+
+    #Separando grãos das bordas
+    faixa = 3
+    n_borda = 0
+    for c in contours:
+        (x_ini,y_ini,w,h) = cv2.boundingRect(c)
+        x_end = x_ini+w; y_end = y_ini+h
+
+        if 0<x_ini<faixa or 0<y_ini<faixa or x_img-faixa<x_end<x_img or y_img-faixa<y_end<y_img:
+            n_borda +=1
+
+    #Preenchendo contornos
+    img_out = img.copy()
+    del img
+    for c in contours:
+        random_color = [np.random.randint(20, 235) for i in range(3)]
+        img_out = cv2.drawContours(img_out, [c], -1, random_color, 3)
+    
+    #resultados
+    resultado = len(contours)-round(n_borda/2)
+    
+    return img_out, resultado
+
+if __name__ == "__main__":
+    img = cv2.imread("data/steel.jpg")
+    #parametros = [1, 191, 3, 5, 0, 2, 0, 41] # Simulated Annealing
+    parametros = [1, 99, 5, 3, 1, 5, 0, 31] # Genetic Algorithms
+    img_out, resultado = processing_memory_fix(img, parametros)
+
+    print("Resultado = {} grãos contados".format(resultado))
+
+    #plt.figure(figsize=(10,10))
+    #plt.axis('off')
+    #plt.imshow(img_out, 'gray')
+    #plt.savefig('output.png')
+
+    cv2.imwrite('data/output.jpg',img_out)

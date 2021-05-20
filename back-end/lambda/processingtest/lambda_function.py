@@ -38,76 +38,93 @@ def lambda_handler(event, context):
     print(event)
     #1. parse out query string params
     startTime = time.time()
-    try:
-        id = event['queryStringParameters']['id']
-        scale = event['queryStringParameters']['scale']
-        inputImage = event['queryStringParameters']['inputImage']
-        print("queryStringParameters")
-    except:
-        try:
-            id = event['body']['id']
-            scale = event['body']['scale']
-            inputImage = event['body']['inputImage']
-            print("post parameters")
-        except:
-            id = 0
-            scale = 0
-            inputImage = 'none'
-            print("no parameters")
+    message = ''
+    inputImage = 'none'
+    result = -1
+    outputImage = ''
 
-    print('id=', id)
-    print('scale=', scale)
-    print('inputImage=', inputImage[:10], "...")
+    if 'queryStringParameters' in event.keys() and event['queryStringParameters'] != None:
+        try:
+            inputImage = event['queryStringParameters']['inputImage']
+            message += "success: read inputImage in queryStringParameters\n"
+            print("success: read inputImage in queryStringParameters")
+        except:
+            message += "error: no inputImage found in queryStringParameters\n"
+            print("error: no inputImage found in queryStringParameters")
+    
+    elif 'body' in event.keys() and event['body'] != None:
+        try:
+            inputImage = event['body']['inputImage']
+            message += "success: read inputImage in body\n"
+            print("success: read inputImage in body")
+        except:
+            message += "error: no inputImage found in body\n"
+            print("error: no inputImage found in body")
+    
+    elif 'inputImage' in event.keys():
+        try:
+            inputImage = event['inputImage']
+            message += "success: read inputImage in event\n"
+            print("success: read inputImage in event")
+        except:
+            message += "error: no inputImage found in event\n"
+            print("error: no inputImage found in event")
+
+    else:
+        message += "error: no inputImage found anywhere\n"
+        print("error: no inputImage found anywhere")
+    
+    print('inputImage=', inputImage[:10])
 
     #2. processing
 
     # parameter list
     #parameters = [1, 191, 3, 5, 0, 2, 0, 41] # Simulated Annealing
-    parametros = [1, 99, 5, 3, 1, 5, 0, 31] # Genetic Algorithms
+    parameters = [1, 99, 5, 3, 1, 5, 0, 31] # Genetic Algorithms
 
     # conditions and error catching
     if inputImage[:4].lower() == 'none':
+        message += 'error: no image sent\n'
         print('error: no image sent')
-        result = 0
-        outputImage = ''
-        message = 'error: no image sent'
     else:
         if inputImage[:4].lower() != 'test':
             try:
                 print('decoding base64')
                 # decoding base64
                 input_img = decodeImage(inputImage); del inputImage
-                message = 'success: user'
+                message += 'success: user image read\n'
+                print('success: user image read')
             except:
+                message += 'error: decoding fail\n'
                 print('error: decoding fail')
-                message = 'error: decoding fail'
         else:
             try:
                 print('opening default image')
                 # opening default image
                 input_img = cv2.imread("Aco224.jpg")
-                message = 'success: default'
+                message += 'success: default image read\n'
+                print('success: default image read')
             except:
+                message += 'error: default image reading fail\n'
                 print('error: default image reading fail')
-                message = 'error: default image reading fail'
         
         try:
             # processing        
             out_img, result = processing_memory_fix(input_img, parameters); del input_img
             # encoding image to base64
             outputImage = encodeImage(out_img); del out_img
-            message = message+'image processed'
+            message += 'success: image processed\n'
+            print('success: image processed')
         except:
+            message += 'error: processing fail\n'
             print('error: processing fail')
-            message = ' error: processing fail'
-            outputImage = ''
 
     totalTime = time.time() - startTime
     
     #3. construct response
     transactionResponse = {}
-    transactionResponse['id'] = id
-    transactionResponse['scale'] = scale
+    transactionResponse['id'] = 0
+    transactionResponse['scale'] = 0
     transactionResponse['outputImage'] = outputImage
     transactionResponse['message'] = message
     transactionResponse['count'] = result
@@ -120,6 +137,9 @@ def lambda_handler(event, context):
     responseObject['headers']['Content-scale'] = 'application/json'
     responseObject['headers']['Access-Control-Allow-Origin'] = '*'
     responseObject['headers']['Access-Control-Allow-Credentials'] = 'true'
+    responseObject['headers']['Access-Control-Allow-Methods'] = 'POST, GET'
+    responseObject['headers']['Access-Control-Allow-Headers'] = '*'
+    responseObject['headers']['Access-Control-Max-Age'] = 7200
     responseObject['body'] = json.dumps(transactionResponse)
 
     return responseObject
@@ -128,14 +148,6 @@ def lambda_handler(event, context):
 
 # Local testing
 if __name__ == "__main__":
-    startTime = time.time()
-    img = cv2.imread("./Aco224.jpg")
-    parameters = [1, 191, 3, 5, 0, 2, 0, 41] # Simulated Annealing
-    #parametros = [1, 99, 5, 3, 1, 5, 0, 31] # Genetic Algorithms
-    _, result = processing_memory_fix(img, parameters)
-
-    totalTime = time.time() - startTime
-    transactionResponse = {}
-    transactionResponse['count'] = result
-    transactionResponse['time'] = float('{:0.2f}'.format(totalTime) )
-    print(transactionResponse)
+    event = {"inputImage":"test"}
+    responseObject = lambda_handler(event, None)
+    print(responseObject)
