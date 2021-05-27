@@ -11,7 +11,8 @@ const outputCard = document.getElementById("output-card");
 var resultJson;
 //const baseUrl = 'http://127.0.0.1:5000/process';
 //const baseUrl = 'https://grain-count-flask-api.herokuapp.com/process'
-const baseUrl = 'https://grain-count-api.herokuapp.com/process'
+//const baseUrl = 'https://grain-count-api.herokuapp.com/process'
+const baseUrl = 'https://n0jbrn04n2.execute-api.sa-east-1.amazonaws.com/V01/grain-api'
 
 
 // Event listener for uploaded image input tag
@@ -92,6 +93,9 @@ var postRequest = function () {
     Http.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             var resultJson = JSON.parse(Http.response);
+            if (!('inputImage' in resultJson)){
+                var resultJson = JSON.parse(resultJson['body']);
+            }
             resultImageChange(resultJson);
             console.log("get request finished: "+resultJson["name"]);
         }
