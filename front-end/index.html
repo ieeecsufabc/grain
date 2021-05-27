@@ -1,44 +1,107 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
-    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;700&display=swap" rel="stylesheet">
     <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="style.css">
     <title>Grain</title>
+
+    <!-- Meta tags for SEO -->
     <meta name="description" content="Grain Size Analysis Project">
     <meta name="keywords" content="Grain, Images, Segmentation">
     <meta name="author" content="CS IEEE UFABC">
+
+    <!-- Favicon -->
     <link rel="shortcut icon" type="image/ico" href="favicon.ico">
 
-    <!-- Scripts para a mudança de linguagem -->
-        <!-- Jquery https://www.w3schools.com/jquery/jquery_get_started.asp -->
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-        <!-- Jquery-Localize https://github.com/coderifous/jquery-localize -->
-        <script src="jquery.localize.min.js"></script>
-        <!-- Script com a nossa funcionalidade -->
-        <script src="app.js"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
+
+    <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
+    <link rel="stylesheet" href="./assets/css/style.css">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
+
 <body>
-    <nav>
+    <!-- <nav>
         <ul>
             <li><a href="#" id="navbar-title" data-localize="title"></a></li>
-            <li><a href="#"        data-localize="navbar.home"></a></li>
+            <li><a href="#" data-localize="navbar.home"></a></li>
             <li><a href="analysis" data-localize="navbar.analysis"></a></li>
-            <li><a href="about"    data-localize="navbar.about"></a></li>
+            <li><a href="about" data-localize="navbar.about"></a></li>
             <li><a href="https://github.com/ieeecsufabc/grain">Github</a></li>
             <li><a href="https://github.com/ieeecsufabc/grain/wiki">Wiki</a></li>
-            <!-- <li><a href="#"        data-localize="navbar.bugreport"></a></li> -->
-            <!-- <li><a href="#"        data-localize="navbar.help"></a></li> -->
+                <li><a href="#"        data-localize="navbar.bugreport"></a></li>
+                <li><a href="#"        data-localize="navbar.help"></a></li>
             <li> <button type="button" id="en">EN</button></li>
             <li> <button type="button" id="br">BR</button></li>
         </ul>
-    </nav>
-    <main>
-        <article>
+    </nav> -->
 
-            <!-- O Texto a seguir muda de acordo com a localização ou linguagem escolhida -->
-            <h1 data-localize="title"></h1>
+    <header>
+        <div class="general-box">
+            <nav>
+                <div id="logo-ieee">
+                    <img src="./assets/imgs/IEEE UFABC logo novo 2.png" alt="Logo IEEE UFABC">
+                </div>
+
+                <div>
+                    <ul id="nav-links">
+                        <li><a href="">Sobre</a></li>
+                        <li><a href="">Ajuda</a></li>
+                    </ul>
+
+                    <div class="change-language">
+                        <span class="pt">PT</span>
+                        <input type="checkbox" name="" id="" class="check">
+                        <span class="en">EN</span>
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="box">
+            <div class="upload-image">
+                <h2>Analisar</h2>
+
+                <h3>Escolha a imagem</h3>
+
+                <div class="drag-area">
+                    <div class="icon">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                    </div>
+                    <h3>Arraste e solte aqui</h3>
+                    <span>OU</span>
+                    <!-- <label for="image" class="sr-only">Select image</label> Facilita acessibilidade -->
+                    <button>
+                        Escolher...
+                    </button>
+                    <input type="file" name="" id="image" accept="image/*" hidden>
+                </div>
+
+                <button type="submit" class="button-submit">
+                    <i class="fas fa-search"></i>
+                    Analisar
+                </button>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <img src="./assets/imgs/logo-ieee.png" alt="Logo IEEE UFABC">
+        <p>© 2021 Copyright - Todos os direitos reservados</p>
+    </footer>
+
+    <!-- <main>
+        <article> -->
+
+    <!-- O Texto a seguir muda de acordo com a localização ou linguagem escolhida -->
+    <!-- <h1 data-localize="title"></h1>
 
             <h2 data-localize="home.description"></h2>
 
@@ -47,15 +110,15 @@
             </figure>
 
             <a href="analysis" data-localize="navbar.analysis"></a>
-        </article>
-        
-        <!-- 
+        </article> -->
+
+    <!-- 
         <hr>
         <article>
             <h1>Lorem ipsum</h1>
             <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Voluptate unde vel quod laudantium numquam voluptatum quia impedit, consequatur blanditiis iusto. Placeat consectetur ipsam ipsa deleniti itaque assumenda sint eum est.</p>
         </article> -->
-    </main>
+    <!-- </main> -->
     <!-- <footer>
         <div class="column"><img class="logo" src="https://upload.wikimedia.org/wikipedia/commons/4/46/Button_Icon_Orange.svg"></div>
         <div class="column"><strong>Contato</strong><p>Link 1<br>Link 2<br>Link 3<br>Link 4</p></div>
@@ -63,5 +126,18 @@
         <div class="column"><strong>Encontrou algum Bug?</strong><p>Mande um e-mail para email@email.com com o assunto ‘bug’</p></div>
         <div class="column"><strong>Lançado dobre a liçença [licença X]</strong></div>
     </footer> -->
+
+
+    <!-- Scripts para a mudança de linguagem -->
+    <!-- Jquery https://www.w3schools.com/jquery/jquery_get_started.asp -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- Jquery-Localize https://github.com/coderifous/jquery-localize -->
+    <script src="jquery.localize.min.js"></script>
+    <!-- Script com a nossa funcionalidade -->
+    <script src="app.js"></script>
+    <!-- Drag & Drop -->
+    <script src="./assets/js/script.js"></script>
+
 </body>
+
 </html>
