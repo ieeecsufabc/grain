@@ -1,3 +1,7 @@
+### Link para o site funcionando:
+*Working website:*
+### [Grain Size Analysis Website](https://ieeecsufabc.github.io/grain/front-end/ "Grain Size Analysis Website")
+___
 # **Projeto Determinação de Tamanho de Grãos**
 ### Um projeto da IEEE Computer Society UFABC + Electronics Packaging Society UFABC
 
@@ -7,6 +11,5 @@ ___
 ### IEEE Computer Society UFABC + IEEE Electronics Packaging Society UFABC
 *This project utilizes Digital Image Processing techniques to perform grain size analysis in metal micrograph images. This task is currently done manually by Engineering Students in the Federal University of ABC (UFABC), especially Material Engineering students. The final objective is creating a website that performs this task precisely and automatically.*
 ___
-### Link para o site funcionando:
-*Working website:*
-### [Grain Size Analysis Website](https://ieeecsufabc.github.io/grain/back-end/static/ "Grain Size Analysis Website")
+### Wiki do Projeto:
+### [Grain Size Analysis Wiki](https://github.com/ieeecsufabc/grain/wiki "Grain Size Analysis Wiki")

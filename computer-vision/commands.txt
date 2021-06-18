@@ -1,0 +1,11 @@
+# Creating conda enviroment
+conda create --name grain-cv python=3.7
+
+# Installing tesseract
+https://digi.bib.uni-mannheim.de/tesseract/tesseract-ocr-w64-setup-v5.0.0.20190623.exe
+
+# Installing packages
+pip install opencv-python-headless Pillow jupyter matplotlib pytesseract --trusted-host pypi.python.org --trusted-host files.pythonhosted.org --trusted-host pypi.org
+
+# Generating requirements
+pip freeze > requirements.txt
