@@ -3,6 +3,8 @@ const dropArea = document.querySelector('.drag-area'),
 dragText = dropArea.querySelector('h3'),
 button = dropArea.querySelector('button'),
 input = dropArea.querySelector('input')
+let subtitle = document.querySelector('subtitle')
+console.log(subtitle)
 
 let file // this is a global variable and we'll use it inside multiple functions
 
@@ -49,9 +51,19 @@ function showFile() {
             let imgTag = `<img src="${fileURL}" alt="">`; // creating an img tag and passing user selected file source inside src attribute
             dropArea.innerHTML = imgTag; // adding that created img tag inside dropArea container
         }
+        
+        console.log(subtitle);
+        subtitle.textContent = "Imagem escolhida";
         fileReader.readAsDataURL(file);
     } else {
-        alert('Este não é um arquivo de imagem!');
+        // alert('Este não é um arquivo de imagem!');
+        $('.alert').removeClass("hide");
+        $('.alert').addClass("show");
+        $('.alert').addClass("showAlert");
+        $('.close-btn').click(function(){
+            $('.alert').addClass("hide");
+            $('.alert').removeClass("show");
+        });
         dropArea.classList.remove("active");
         dragText.textContent = "Arraste e solte aqui";
     }

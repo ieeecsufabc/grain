@@ -3,7 +3,7 @@
     "navbar":{
         "home":"Home",
         "analysis":"Iniciar",
-        "about":"Mais Informações",
+        "about":"Sobre",
         "bugreport":"Reportar bug",
         "help":"Ajuda"
     },
@@ -19,6 +19,8 @@
     "analysis":{
         "title":"Análise de Imagem",
         "analyse":"Analisar",
+        "subtitle": "Escolha a imagem",
+        "subtitle2": "Imagem escolhida",
         "send":"Enviar",
         "results":"Resultados",
         "number":"Número de grãos:",

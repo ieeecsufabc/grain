@@ -50,8 +50,8 @@
 
                 <div>
                     <ul id="nav-links">
-                        <li><a href="">Sobre</a></li>
-                        <li><a href="">Ajuda</a></li>
+                        <li><a href="" data-localize="navbar.about"></a></li>
+                        <li><a href="" data-localize="navbar.help"></a></li>
                     </ul>
 
                     <div class="change-language">
@@ -67,9 +67,9 @@
     <main>
         <div class="box">
             <div class="upload-image">
-                <h2>Analisar</h2>
+                <h2 data-localize="analysis.analyse"></h2>
 
-                <h3>Escolha a imagem</h3>
+                <h3 class="subtitle" data-localize="analysis.subtitle"></h3>
 
                 <div class="drag-area">
                     <div class="icon">
@@ -96,6 +96,24 @@
         <img src="./assets/imgs/logo-ieee.png" alt="Logo IEEE UFABC">
         <p>© 2021 Copyright - Todos os direitos reservados</p>
     </footer>
+
+    <div class="cookies-container">
+        <h3>Cookies & Privacy</h3>
+        <p>This website uses cookies to ensure you get the best experience on our website.</p>
+        <!-- <div> -->
+        <a href="#" class="more-info">More information</a>
+        <a href="" class="button-accept">Accept</a>
+        <!-- </div> -->
+    </div>
+
+    <!-- Alerta para upload de arquivo fora dos padrões -->
+    <div class="alert hide">
+        <span><i class="fas fa-exclamation-circle"></i></span>
+        <span class="msg">Este não é um arquivo de imagem!</span>
+        <span class="close-btn">
+            <span><i class="fas fa-times"></i></span>
+        </span>
+    </div>
 
     <!-- <main>
         <article> -->
@@ -129,12 +147,12 @@
 
 
     <!-- Scripts para a mudança de linguagem -->
-    <!-- Jquery https://www.w3schools.com/jquery/jquery_get_started.asp -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- Jquery-Localize https://github.com/coderifous/jquery-localize -->
-    <script src="jquery.localize.min.js"></script>
+    <script src="./jquery.localize.min.js"></script>
     <!-- Script com a nossa funcionalidade -->
-    <script src="app.js"></script>
+    <script src="./app.js"></script>
+
     <!-- Drag & Drop -->
     <script src="./assets/js/script.js"></script>
 
