@@ -21,9 +21,20 @@
         "analyse":"Analisar",
         "subtitle": "Escolha a imagem",
         "subtitle2": "Imagem escolhida",
+        "draganddrop": "Arraste e solte aqui",
+        "draganddrop2":"OU",
         "send":"Enviar",
         "results":"Resultados",
         "number":"Número de grãos:",
-        "again":"Analisar outra imagem"
+        "again":"Analisar outra imagem",
+        "select":"Escolher..."
+    },
+    "cookies":{
+        "title":"Cookies & Privacidade",
+        "description":"Este website utiliza cookies para garantir que você obtenha a melhor experiência em nosso website.",
+        "button":"Aceitar"
+    },
+    "footer":{
+        "copyright":"© 2021 Copyright - Todos os direitos reservados"
     }
 }

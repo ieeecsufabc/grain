@@ -53,16 +53,18 @@ $(document).ready(function(){
     }
 
     // Mudança de localização com base no botão
-    $("#en").click(function(){
-        // Localização forçada
-        $("[data-localize]").localize(localizationPath, { language: "en" })
-        // Salva cookie
-        document.cookie = "language=en;path="+cookiePath;
-    });
-    $("#br").click(function(){
-        // Localização forçada
-        $("[data-localize]").localize(localizationPath, { language: "pt" })
-        // Salva cookie
-        document.cookie = "language=pt;path="+cookiePath;
-    });
+    $(".check").click(function(){
+        if($('.check').is(":checked")) {
+            $(".check").addClass("checkEN")
+            // Localização forçada
+            $("[data-localize]").localize(localizationPath, { language: "en" })
+            // Salva cookie
+            document.cookie = "language=en;path="+cookiePath;
+        } else {
+            // Localização forçada
+            $("[data-localize]").localize(localizationPath, { language: "pt" })
+            // Salva cookie
+            document.cookie = "language=pt;path="+cookiePath;
+        }
+    })
 });

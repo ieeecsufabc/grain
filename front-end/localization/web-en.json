@@ -19,9 +19,21 @@
     "analysis":{
         "title":"Image Analysis",
         "analyse":"Analyse",
+        "subtitle": "Choose the image",
+        "draganddrop":"Drag & Drop here",
+        "draganddrop2":"OR",
         "send":"Send",
         "results":"Results",
         "number":"Number of grains:",
-        "again":"Analyse new image"
+        "again":"Analyse new image",
+        "select":"Select..."
+    },
+    "cookies":{
+        "title":"Cookies & Privacy",
+        "description":"This website uses cookies to ensure you get the best experience on our website.",
+        "button":"Accept"
+    },
+    "footer":{
+        "copyright":"© 2021 Copyright - All rights reserved"
     }
 }

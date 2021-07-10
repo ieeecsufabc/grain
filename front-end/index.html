@@ -75,18 +75,18 @@
                     <div class="icon">
                         <i class="fas fa-cloud-upload-alt"></i>
                     </div>
-                    <h3>Arraste e solte aqui</h3>
-                    <span>OU</span>
+                    <h3 class="legend1" data-localize="analysis.draganddrop">Arraste e solte aqui</h3>
+                    <span class="or" data-localize="analysis.draganddrop2">OU</span>
                     <!-- <label for="image" class="sr-only">Select image</label> Facilita acessibilidade -->
-                    <button>
-                        Escolher...
+                    <button class="select-button">
+                        <span data-localize="analysis.select"></span>
                     </button>
-                    <input type="file" name="" id="image" accept="image/*" hidden>
+                    <input class="input-upload" type="file" name="" id="image" hidden>
                 </div>
 
                 <button type="submit" class="button-submit">
                     <i class="fas fa-search"></i>
-                    Analisar
+                    <span data-localize="analysis.analyse"></span>
                 </button>
             </div>
         </div>
@@ -94,19 +94,19 @@
 
     <footer>
         <img src="./assets/imgs/logo-ieee.png" alt="Logo IEEE UFABC">
-        <p>© 2021 Copyright - Todos os direitos reservados</p>
+        <p data-localize="footer.copyright"></p>
     </footer>
 
+    <!-- Caixa do cookie -->
     <div class="cookies-container">
-        <h3>Cookies & Privacy</h3>
+        <h3 data-localize="cookies.title">Cookies & Privacy</h3>
         <p>This website uses cookies to ensure you get the best experience on our website.</p>
-        <!-- <div> -->
-        <a href="#" class="more-info">More information</a>
-        <a href="" class="button-accept">Accept</a>
-        <!-- </div> -->
+
+        <!-- <a href="#" class="more-info">More information</a> -->
+        <a href="#" class="button-accept">Accept</a>
     </div>
 
-    <!-- Alerta para upload de arquivo fora dos padrões -->
+    <!-- Alerta para upload de arquivo com extensão não permitida -->
     <div class="alert hide">
         <span><i class="fas fa-exclamation-circle"></i></span>
         <span class="msg">Este não é um arquivo de imagem!</span>
@@ -145,14 +145,12 @@
         <div class="column"><strong>Lançado dobre a liçença [licença X]</strong></div>
     </footer> -->
 
-
     <!-- Scripts para a mudança de linguagem -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- Jquery-Localize https://github.com/coderifous/jquery-localize -->
     <script src="./jquery.localize.min.js"></script>
     <!-- Script com a nossa funcionalidade -->
     <script src="./app.js"></script>
-
     <!-- Drag & Drop -->
     <script src="./assets/js/script.js"></script>
 
