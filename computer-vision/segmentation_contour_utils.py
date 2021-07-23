@@ -4,11 +4,11 @@ import numpy as np
 import inspect
 
 def find_scale_contour(contours):
-    '''Função para ordenar lista de contornos com objetivo de contrar aquele que mais se 
+    '''Função para ordenar lista de contornos com objetivo de encontrar aquele que mais se 
     parece com uma linha de escala'''
 
     # Filtrando contornos com área pequena
-    #contours = [c for c in contours_original if cv2.contourArea(c)> 100]
+    contours = [c for c in contours if cv2.contourArea(c)> 100]
 
     #Ordenando Lista de Contornos
     def thinness(contour):
@@ -18,43 +18,74 @@ def find_scale_contour(contours):
     contours = sorted(contours, key = thinness, reverse = True)
     return contours
 
-def scale_processing(img):
-    '''Função para encontrar lista de contornos com o objetivo de encontrar o contorno que mais se parece com a barra de escala'''
-    
+def filter0(img):
+    return cv2.Canny(img,100,200)
+
+def filter1(img):
+    # Conversão de uma imagem para outro sistema de cores
+    #img_gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+
+    # Aplicando Canny
+    edges = cv2.Canny(img,100,200)
+
+    # Aplicando filtro de sobel implementado na mão
+    img_sobel = custom_sobel_bruno(edges)
+
+    return img_sobel
+
+def filter2(img):
+    sobelx = cv.Sobel(img,cv.CV_64F,1,0,ksize=5)
+    sobely = cv.Sobel(img,cv.CV_64F,0,1,ksize=5)
+
+    thresh, img_thresh = cv2.threshold(sobely,140,255,cv2.THRESH_BINARY_INV)
+    return img_thresh
+
+def filter3(img):
     # Conversão de uma imagem para outro sistema de cores
     img_gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
 
-    # Aplicando Canny
-    #edges = cv2.Canny(img,100,200)
-    #plt.subplot(121),plt.imshow(img,cmap = 'gray')
-    #plt.title('Original Image'), plt.xticks([]), plt.yticks([])
-    #plt.subplot(122),plt.imshow(edges,cmap = 'gray')
-    #plt.title('Edge Image'), plt.xticks([]), plt.yticks([])
+    # Aplicando filtro de sobel manual
+    img_sobel = custom_sobel_bruno(img_gray).astype(np.uint8)
 
-    # Filtros para realçar as bordas certas
-    # Filtro de sobel
-    # https://docs.opencv.org/3.4.2/d5/d0f/tutorial_py_gradients.html
-
-    img_sobel = sobel(img_gray).astype(np.uint8)
-    #plt.figure(figsize=(10,10)); plt.title("img_sobel"); fig=plt.imshow(img_sobel, "gray")
-
-    #Aplicando Threshold
+    # Aplicando Threshold Otsu
     thresh, img_thresh = cv2.threshold(img_sobel,0,255,cv2.THRESH_BINARY_INV+cv2.THRESH_OTSU)
-    #thresh, img_thresh = cv2.threshold(img_sobel,140,255,cv2.THRESH_BINARY_INV)
-    #thresh, img_thresh = cv2.threshold(img_blur,0,255,cv2.THRESH_BINARY_INV)
-    plt.figure(figsize=(7,7)); plt.title("img_thresh"); fig=plt.imshow(img_thresh, "gray")
-    #cv2.imshow("OTSU Image", img_thresh)
-    #cv2.waitKey(0)
 
-    #APLICANDO EROSÃO
-    kernel = np.ones((3,3))
-    '''img_open = cv2.morphologyEx(img_thresh,cv2.MORPH_OPEN,kernel, iterations = 1)
-    img_eroded = cv2.erode(img_open,kernel,iterations=3)
-    plt.figure(figsize=(10,10)); plt.title("img_eroded"); fig=plt.imshow(img_eroded, "gray")'''
-    '''dilation = cv2.dilate(img_thresh, kernel, iterations=1) 
-    plt.figure(figsize=(10,10)); plt.title("img_dilated"); fig=plt.imshow(dilation, "gray")'''
+    return img_thresh
 
-def get_contours(img_thresh, color=(0,255,0), thickness=3):
+def filter4(img):
+    # Convertendo para escala de cinza
+    img_gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+
+    # Suavização
+    img_gray = cv2.bilateralFilter(img_gray,9,75,75)
+
+    # Criando filtro
+    #width = int( img_gray.shape[0]/10 )
+    kernel = cv2.getStructuringElement(cv2.MORPH_RECT, (31,3))
+    if np.sum(kernel)!=0:
+        kernel = kernel/np.sum(kernel)
+
+    img_convolved = cv2.filter2D(img_gray, -1, kernel)
+
+    # Invertendo
+    img_not = cv2.bitwise_not(img_convolved)
+
+    return img_not
+
+def filter5(img):
+    # Convertendo para escala de cinza
+    img_gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+
+    # Suavização
+    img_gray = cv2.bilateralFilter(img_gray,9,75,75)
+
+    # Sobel
+    img_convolved = custom_sobely(img_gray, ksize=15)
+
+    # Invertendo
+    img_not = cv2.bitwise_not(img_convolved)
+
+def get_contours(img, img_thresh, color=(0,255,0), thickness=3):
     #Desenhando borda na imagem
     y,x = img_thresh.shape
     img_thresh[:,   0] = 0; img_thresh[:, x-1] = 0; img_thresh[0,   :] = 0; img_thresh[y-1, :] = 0
@@ -122,6 +153,25 @@ def custom_sobelxy(image):
     kernel_sobel_y = np.array([[-1, 0, 1],
                             [-2, 0, 2],
                             [-1, 0, 1]], dtype=int)
+    imgx = convolution(image, kernel_sobel_x)
+    imgy = convolution(image, kernel_sobel_y)
+    
+    img = imgx + imgy
+    
+    #Normalizando para 8bits (0-255)
+    img = img - np.min(img)
+    img = 255.0*img/np.max(img)
+    
+    return  np.uint8(np.sqrt(img))
+
+def custom_sobel_bruno(image):
+    kernel_sobel_x = np.array([[-1, -2, -1],
+                               [ 0,  0,  0],
+                               [ 1,  2,  1]], dtype=int)
+
+    kernel_sobel_y = np.array([[-1, 0, 1],
+                               [-2, 0, 2],
+                               [-1, 0, 1]], dtype=int)
     imgx = convolution(image, kernel_sobel_x)
     imgy = convolution(image, kernel_sobel_y)
     
