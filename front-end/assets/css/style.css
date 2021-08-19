@@ -14,7 +14,6 @@
 body {
   font-family: "Open Sans", sans-serif;
   letter-spacing: 1px;
-  /* overflow: hidden; */
 }
 
 .sr-only {
@@ -97,6 +96,12 @@ header .general-box nav div:nth-child(2) {
   font-size: 0.9em;
   font-weight: bold;
   color: var(--dark-gray);
+  opacity: 0.8;
+}
+
+.change-language .pt.checked,
+.change-language .en.checked {
+  opacity: 1;
 }
 
 .check {
@@ -139,8 +144,8 @@ header .general-box nav div:nth-child(2) {
   margin: 0 auto;
   margin-top: 20vh;
 
-  border: 1px solid var(--light-gray);
-  box-shadow: 10px 10px 32px rgba(0, 0, 0, 0.1);
+  /* border: 1px solid var(--light-gray); */
+  box-shadow: 10px 10px 32px rgba(0, 0, 0, 0.37);
   border-radius: 16px;
 }
 
@@ -260,17 +265,21 @@ footer img {
 
 /* Cookies ================================================================ */
 .cookies-container {
-  width: 400px;
+  width: 95%;
   padding: 1em;
   border: 1px solid #006090a1;
-  background-color: #00609021;
+  background-color: #c8d6dd;
+  opacity: 0.9;
   border-radius: 10px;
-  margin: 1em;
+  font-size: 0.8em;
+  margin: 1em auto;
+  box-sizing: inherit;
 
   position: fixed;
   right: 0;
+  left: 0;
   bottom: 0;
-  display: none;
+  /* display: none; */
 }
 
 .cookies-container h3 {
@@ -394,4 +403,38 @@ footer img {
 .alert .fa-times {
   color: #006090;
   font-size: 18px;
+}
+
+/* =================================================================== PEGANDO DO OUTRO CSS */
+.process-image {
+  width: 250px;
+  height: 250px;
+  margin: 25px 12.5px 12.5px 25px;
+  border: 1px solid lightgray;
+}
+
+#preview-image {
+  display: none;
+  width: 200px;
+  height: 200px;
+}
+
+#output-card {
+  width: 600px;
+  display: none;
+  background-color: white;
+}
+
+.output-content {
+  border: 1px solid lightgray;
+}
+
+.output-text {
+  text-align: left;
+  margin-left: 37.5px;
+}
+
+.output-text-wrapper {
+  margin-top: 12.5px;
+  margin-bottom: 25px;
 }

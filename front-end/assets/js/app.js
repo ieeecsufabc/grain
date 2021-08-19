@@ -53,6 +53,14 @@ $(document).ready(function(){
     }
 
     // Mudança de localização com base no botão
+    if(!$('.check').is(":checked")) {
+        // Localização forçada
+        $("[data-localize]").localize(localizationPath, { language: "pt" })
+        // Salva cookie
+        document.cookie = "language=pt;path="+cookiePath;
+        $('.pt').addClass('checked')
+    }
+    
     $(".check").click(function(){
         if($('.check').is(":checked")) {
             $(".check").addClass("checkEN")
@@ -60,11 +68,15 @@ $(document).ready(function(){
             $("[data-localize]").localize(localizationPath, { language: "en" })
             // Salva cookie
             document.cookie = "language=en;path="+cookiePath;
+            $('.pt').removeClass('checked')
+            $('.en').addClass('checked')
         } else {
             // Localização forçada
             $("[data-localize]").localize(localizationPath, { language: "pt" })
             // Salva cookie
             document.cookie = "language=pt;path="+cookiePath;
+            $('.en').removeClass('checked')
+            $('.pt').addClass('checked')
         }
     })
 });

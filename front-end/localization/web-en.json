@@ -20,6 +20,7 @@
         "title":"Image Analysis",
         "analyse":"Analyse",
         "subtitle": "Choose the image",
+        "subtitle2": "Chosen image",
         "draganddrop":"Drag & Drop here",
         "draganddrop2":"OR",
         "send":"Send",

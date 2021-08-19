@@ -1,78 +1,162 @@
-// selecionando todos os elementos necessários
-const dropArea = document.querySelector('.drag-area'),
-dragText = dropArea.querySelector('.legend1'),
-button = dropArea.querySelector('.select-button'),
-input = dropArea.querySelector('.input-upload')
+// Element variables definitions
+const inpFile = document.getElementById("input-image"); //ok
+const previewImage = document.getElementById("preview-image"); //ok
+const rawImage = document.getElementById("raw-image"); //ok
+const resultImage = document.getElementById("processed-image"); //ok
+const resultDefaultText = document.getElementById("output-count"); //ok
+const inpUrl = document.getElementById("input-url"); //ok
+const inputCard = document.getElementById("input-card"); //ok
+const outputCard = document.getElementById("output-card"); //ok
 
-let checkedValue = $('.check').is(":checked")
-console.log(checkedValue)
-let file // esta é uma variável global e nós usaremos dentro de várias funções
+var resultJson;
+//const baseUrl = 'http://127.0.0.1:5000/process';
+//const baseUrl = 'https://grain-count-flask-api.herokuapp.com/process'
+const baseUrl = 'https://grain-count-api.herokuapp.com/process'
 
-button.onclick = () => {
-    input.click() // se o usuário clicar no botão então o input também será clicado
-}
+// Event listener for uploaded image input tag
+//      encodes uploaded image
+//      set preview image and raw image sources
+inpFile.addEventListener("change", function () {
+    const file = this.files[0];
+    if (file) {
+        const reader = new FileReader();
 
-input.addEventListener("change", function(){
-    // obter o arquivo de seleção do usuário
-    // [0] significa que se o usuário selecionar múltiplos arquivos, selecionaremos apenas o primeiro
-    file = this.files[0]
-    showFile()
-    
-})
+        reader.addEventListener("load", function () {
+            console.log(this.result);
 
-// se o usuário arrastar o arquivo sobre o DragArea
-dropArea.addEventListener("dragover", (event) => {
-    event.preventDefault() // evitando comportamento padrão
-    dropArea.classList.add('active') // ativa o tipo de contorno sólido
-    if($('.check').is(":checked")){
-        dragText.textContent = "Release to upload"
-    } else {
-        dragText.textContent = "Solte para fazer o upload"
-    }
-})
-
-// se o usuário sair da área de DragArea com o arquivo arrastado
-dropArea.addEventListener("dragleave", () => {
-    dropArea.classList.remove('active')
-    if($('.check').is(":checked")){
-        dragText.textContent = "Drag & Drop here"
-    } else {
-        dragText.textContent = "Arraste e solte aqui"
-    }
-})
-
-// se o usuário soltar o arquivo na DropArea
-dropArea.addEventListener("drop", (event) => {
-    event.preventDefault() // evitando comportamento padrão
-    // obter o arquivo de seleção do usuário
-    // [0] significa que se o usuário selecionar múltiplos arquivos, selecionaremos apenas o primeiro
-    file = event.dataTransfer.files[0]
-    showFile()
-})
-
-// função de mostrar a imagem
-function showFile() {
-    let fileType = file.type
-
-    let validExtensions = ["image/jpeg", "image/jpg", "image/png"]; // adicionando algumas extensões válidas de imagem no array
-
-    if (validExtensions.includes(fileType)) { // se o arquivo selecionando pelo usuário é uma imagem
-        let fileReader = new FileReader(); // criando objeto de new FileReader
-        fileReader.onload = () => {
-            let fileURL = fileReader.result; // passando a fonte do arquivo do usuário na var fileURL
-            let imgTag = `<img src="${fileURL}" alt="Imagem de micrografia">`; // criando uma tag img e passando a fonte do arquivo selecionado pelo usuário dentro do atributo src
-            dropArea.innerHTML = imgTag; // adicionando a tag img criada dentro do container dropAreadropArea container
-        }
-        fileReader.readAsDataURL(file);
-    } else {
-        $('.alert').removeClass("hide");
-        $('.alert').addClass("show");
-        $('.alert').addClass("showAlert");
-        dropArea.classList.remove("active");
-        dragText.textContent = $('.check').is(":checked") ? "Drag & Drop here" : "Arraste e solte aqui"
-        $('.close-btn').click(function(){
-            $('.alert').addClass("hide");
-            $('.alert').removeClass("show");
+            previewImage.style.display = "block";
+            previewImage.setAttribute("src", this.result);
+            rawImage.setAttribute("src", this.result);
+            console.log("previewImage.setAttribute(src, this.result); "+previewImage.src);
         });
+
+        reader.readAsDataURL(file);
+    } else {
+        previewImage.style.display = null;
+        previewImage.setAttribute("src", "./processing.png");
+        rawImage.setAttribute("src", "./processing.png");
+        console.log("previewImage.src "+previewImage.src);
     }
+});
+
+
+// Result Image change function
+//      called when respose is received
+//      handles response image and creates URI
+//      sets result count text, result image source
+var resultImageChange = function (resultJson) {
+    if (resultJson) {
+        resultDefaultText.innerHTML = resultJson["count"];
+        //resultImage.style.display = "block";
+        let bytestring = resultJson["outputImage"];
+        let image = bytestring.split('\'')[1];
+        image = 'data:image/jpeg;base64,' + image;
+        resultImage.setAttribute("src", image);
+    } else {
+        resultDefaultText.style.display = null;
+        resultImage.style.display = null;
+        resultImage.setAttribute("src", "./processing.png");
+    }
+};
+
+// HTTP POST request
+//      called on showResults function
+var postRequest = function () {
+    var Http = new XMLHttpRequest();   
+    var requestUrl = baseUrl;
+    var requestBody = JSON.stringify({});
+    console.log("previewImage.src: "+ previewImage.src)
+
+    // Setting request url
+    if (inpUrl.value){
+        requestUrl = inpUrl.value;
+    }
+
+    // Setting request data
+    if (!(previewImage.src.includes("processing.png")) ){
+        requestBody = { 'inputImage': encodeURIComponent(previewImage.src)};
+        requestBody = JSON.stringify(requestBody);
+        //requestBody = "inputImage="+encodeURIComponent(previewImage.src);
+    }
+
+    // Sending request
+    console.log("requestBody: "+ JSON.stringify(requestBody));
+
+    Http.open("POST", requestUrl);
+    //Http.withCredentials = true;
+    Http.setRequestHeader("Content-Type", "application/json");
+    Http.send(requestBody);
+
+    // Setting response
+    Http.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            var resultJson = JSON.parse(Http.response);
+            resultImageChange(resultJson);
+            console.log("get request finished: "+resultJson["name"]);
+        }
+    }
+};
+
+// Function to show results wrapper and call http request function
+//      called onclick of input submit tag
+var showResults = function () {
+
+    //getRequest();
+    postRequest();
+
+    inputCard.style.display = 'none';
+    outputCard.style.display = 'block';
 }
+
+// Funtion to reset everything possible
+var resetResults = function () {
+
+    resultDefaultText.innerHTML = "";
+    previewImage.style.display = null;
+    previewImage.setAttribute("src", "./processing.png");
+    rawImage.setAttribute("src", "./processing.png");
+    resultImage.setAttribute("src", "./processing.png");
+
+    previewImage.style.display = null;
+    previewImage.setAttribute("src", "./processing.png");
+
+    inputCard.style.display = 'block';
+    outputCard.style.display = 'none';
+}
+
+/*
+// Deprecated get request
+var getRequest = function () {
+    var Http = new XMLHttpRequest();
+    var requestUrl = "";
+    console.log("previewImage.src: "+ previewImage.src)
+
+    // Setting request url
+    if (inpUrl.value){
+        requestUrl = inpUrl.value;
+    } else {
+        requestUrl = baseUrl;
+    }
+
+    // Setting request data
+    if (!(previewImage.src.includes("processing.png")) ){
+        var requestUrlComplete = requestUrl + "?inputImage=" + encodeURIComponent(previewImage.src);
+    } else {
+        var requestUrlComplete = requestUrl;
+    }
+
+    // Sending request
+    console.log("requestUrlComplete: "+requestUrlComplete);
+    Http.open("GET", requestUrlComplete);
+    Http.send();
+
+    // Setting response
+    Http.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            var resultJson = JSON.parse(Http.response);
+            resultImageChange(resultJson);
+            console.log("get request finished: "+resultJson["name"]);
+        }
+    }
+};
+*/
