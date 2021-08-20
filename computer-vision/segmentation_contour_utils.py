@@ -2,6 +2,44 @@ import cv2
 import matplotlib.pyplot as plt
 import numpy as np
 import inspect
+import os
+
+def isimageformat(file_str):
+    '''Return true if file has image extension'''
+    exts = [".png",".jpg",".jpeg",".tif",".tiff",".bmp"]
+    for ext in exts:
+        if file_str.lower().endswith(ext):
+            return ext[1:]
+    return False
+
+def find_scale_byFolder(f, basepath="./", images = []):
+    '''Procura por barra de escala em imagens da pasta fornecida.'''
+    acc = []
+    for file in os.listdir(basepath):
+        filepath = os.path.join(basepath, file)
+        if os.path.isfile(filepath) and isimageformat(filepath) and (file in images):
+            print("File:", filepath)
+
+            # Lendo imagem
+            img = cv2.imread(filepath)
+
+            img_out = f(img)
+
+            # Resultados
+            small = (14,14)
+            #imgplot(img_out, size=small)
+
+            ### Obtendo contornos
+            contours, img_contours = get_contours(img, img_out, color=(0,255,0), thickness=3)
+            #imgplot(img_contours, size=small)
+
+            # Ordenando lista de contornos
+            contours = find_scale_contour(contours)
+
+            #Desenhando Contornos na imagem original
+            verde = (0,255,0)
+            img_contours = cv2.drawContours(img.copy(), contours[0:1], -1, verde, 3)
+            imgplot(img_contours, size=small, name=file)
 
 def find_scale_contour(contours):
     '''Função para ordenar lista de contornos com objetivo de encontrar aquele que mais se 
@@ -19,9 +57,11 @@ def find_scale_contour(contours):
     return contours
 
 def filter0(img):
+    '''Canny'''
     return cv2.Canny(img,100,200)
 
 def filter1(img):
+    '''filter1: Canny + Custom sobel'''
     # Conversão de uma imagem para outro sistema de cores
     #img_gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
 
@@ -29,18 +69,28 @@ def filter1(img):
     edges = cv2.Canny(img,100,200)
 
     # Aplicando filtro de sobel implementado na mão
-    img_sobel = custom_sobel_bruno(edges)
+    img_sobel = custom_sobel_bruno(edges).astype(np.uint8)
 
     return img_sobel
 
-def filter2(img):
-    sobelx = cv.Sobel(img,cv.CV_64F,1,0,ksize=5)
-    sobely = cv.Sobel(img,cv.CV_64F,0,1,ksize=5)
+def filter2(img, c=0):
+    '''filter2: Sobel y'''
+    #sobelx = cv2.Sobel(img,cv.CV_8U,1,0,ksize=5)
 
-    thresh, img_thresh = cv2.threshold(sobely,140,255,cv2.THRESH_BINARY_INV)
+    img_gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
+
+    sobely = custom_sobely(img_gray)
+
+    #thresh, img_thresh = cv2.threshold(sobely,140,255,cv2.THRESH_BINARY_INV)
+    #thresh, img_thresh = cv2.threshold(sobely,0,255,cv2.THRESH_OTSU)
+
+    img_thresh = cv2.adaptiveThreshold(sobely, 255, cv2.ADAPTIVE_THRESH_MEAN_C, cv2.THRESH_BINARY, 199, -1) 
+    # C=[-1..0] deu bons resultados
+
     return img_thresh
 
 def filter3(img):
+    '''filter3: Custom sobel bruno + otsu'''
     # Conversão de uma imagem para outro sistema de cores
     img_gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
 
@@ -53,6 +103,7 @@ def filter3(img):
     return img_thresh
 
 def filter4(img):
+    '''filter4: bilateral smoothing + convolution + not'''
     # Convertendo para escala de cinza
     img_gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
 
@@ -73,6 +124,7 @@ def filter4(img):
     return img_not
 
 def filter5(img):
+    '''filter5: bilateral smoothing + custom sobely + not'''
     # Convertendo para escala de cinza
     img_gray = cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
 
@@ -84,6 +136,8 @@ def filter5(img):
 
     # Invertendo
     img_not = cv2.bitwise_not(img_convolved)
+
+    return img_not
 
 def get_contours(img, img_thresh, color=(0,255,0), thickness=3):
     #Desenhando borda na imagem
