@@ -438,3 +438,23 @@ footer img {
   margin-top: 12.5px;
   margin-bottom: 25px;
 }
+
+/* =================================================================== About */
+.about-grid-container {
+  display: grid;
+  place-items: center;
+  margin-top: 13vh;
+}
+
+.about-grid-content {
+  padding: 1rem;
+  height: 100%;
+  width: 100ch;
+}
+
+.about-grid-content * {
+  text-align: justify;
+  line-height: 1.6;
+  padding-bottom: 1rem;
+  list-style: none;
+}

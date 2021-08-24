@@ -30,19 +30,22 @@
     <header>
         <div class="general-box">
             <nav>
-                <div id="logo-ieee">
-                    <img src="./assets/imgs/IEEE UFABC logo novo 2.png" alt="Logo IEEE UFABC">
-                </div>
+                <a href="/front-end/">
+                    <div id="logo-ieee">
+                        <img src="./assets/imgs/IEEE UFABC logo novo 2.png" alt="Logo IEEE UFABC">
+                    </div>
+                </a>
 
                 <div>
                     <ul id="nav-links">
-                        <li><a href="" data-localize="navbar.about"></a></li>
-                        <li><a href="" data-localize="navbar.help"></a></li>
+                        <li><a href="./about.html" data-localize="navbar.about"></a></li>
+                        <li><a href="https://github.com/ieeecsufabc/grain/issues/new" data-localize="navbar.help"></a>
+                        </li>
                     </ul>
 
                     <div class="change-language">
                         <span class="pt">PT</span>
-                        <input type="checkbox" name="" id="" class="check">
+                        <input type="checkbox" name="" id="language-input" class="check">
                         <span class="en">EN</span>
                     </div>
                 </div>
@@ -65,7 +68,7 @@
                         <i class="fas fa-cloud-upload-alt"></i>
                     </div>
                     <h3 class="legend1" data-localize="analysis.draganddrop">Arraste e solte aqui</h3>
-                    <span class="or" data-localize="analysis.draganddrop2">OU</span>
+                    <span class="or" data-localize="analysis.draganddrop2">ou</span>
                     <!-- <label for="image" class="sr-only">Select image</label> Facilita acessibilidade -->
                     <button class="select-button">
                         <span data-localize="analysis.select"></span>
@@ -116,7 +119,7 @@
         <p data-localize="cookies.description"></p>
 
         <!-- <a href="#" class="more-info">More information</a> -->
-        <a href="#" class="button-accept" data-localize="cookies.button" onclick="disableCookiePopup()"></a>
+        <a href="#" class="button-accept" data-localize="cookies.button"></a>
     </div>
 
     <!-- Alerta para upload de arquivo com extensão não permitida -->
