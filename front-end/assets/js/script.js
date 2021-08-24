@@ -9,9 +9,9 @@ const inputCard = document.getElementById("input-card"); //ok
 const outputCard = document.getElementById("output-card"); //ok
 
 var resultJson;
-//const baseUrl = 'http://127.0.0.1:5000/process';
-//const baseUrl = 'https://grain-count-flask-api.herokuapp.com/process'
-const baseUrl = 'https://grain-count-api.herokuapp.com/process';
+//const baseUrl = "http://127.0.0.1:5000/process";
+//const baseUrl = "https://grain-count-flask-api.herokuapp.com/process"
+const baseUrl = "https://grain-count-api.herokuapp.com/process";
 
 // Event listener for uploaded image input tag
 //      encodes uploaded image
@@ -49,8 +49,8 @@ function resultImageChange(resultJson) {
         resultDefaultText.innerHTML = resultJson["count"];
         //resultImage.style.display = "block";
         let bytestring = resultJson["outputImage"];
-        let image = bytestring.split('\'')[1];
-        image = 'data:image/jpeg;base64,' + image;
+        let image = bytestring.split("\"")[1];
+        image = "data:image/jpeg;base64," + image;
         resultImage.setAttribute("src", image);
     } else {
         resultDefaultText.style.display = null;
@@ -74,7 +74,7 @@ function postRequest() {
 
     // Setting request data
     if (!(previewImage.src.includes("processing.png"))) {
-        requestBody = { 'inputImage': encodeURIComponent(previewImage.src) };
+        requestBody = { "inputImage": encodeURIComponent(previewImage.src) };
         requestBody = JSON.stringify(requestBody);
         //requestBody = "inputImage="+encodeURIComponent(previewImage.src);
     }
@@ -104,8 +104,8 @@ function showResults() {
     //getRequest();
     postRequest();
 
-    inputCard.style.display = 'none';
-    outputCard.style.display = 'block';
+    inputCard.style.display = "none";
+    outputCard.style.display = "block";
 }
 
 // Funtion to reset everything possible
@@ -120,8 +120,8 @@ function resetResults() {
     previewImage.style.display = null;
     previewImage.setAttribute("src", "./processing.png");
 
-    inputCard.style.display = 'block';
-    outputCard.style.display = 'none';
+    inputCard.style.display = "block";
+    outputCard.style.display = "none";
 }
 
 /*

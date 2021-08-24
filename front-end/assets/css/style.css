@@ -458,3 +458,54 @@ footer img {
   padding-bottom: 1rem;
   list-style: none;
 }
+
+/* =================================================================== Results */
+
+.result-grid-container {
+  display: grid;
+  place-items: center;
+  width: 20vw;
+  height: 20vh;
+}
+
+.result-images-container {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  text-align: center;
+  justify-content: space-around;
+}
+
+.result-image {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+}
+
+.result-image img {
+  width: 250px;
+  height: 250px;
+  border-radius: 0.5rem;
+}
+
+.result-info {
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+}
+
+/* .result-grid-content {
+  display: flex;
+  flex-direction: row;
+} */
+
+.result-content {
+  padding: 1rem;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.fa-arrow-left {
+  color: var(--dark-gray);
+}
