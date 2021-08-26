@@ -16,39 +16,40 @@ const baseUrl = 'https://n0jbrn04n2.execute-api.sa-east-1.amazonaws.com/V01/grai
 // Event listener for uploaded image input tag
 //      encodes uploaded image
 //      set preview image and raw image sources
-inpFile.addEventListener("change", function () {
-    const file = this.files[0];
-    if (file) {
-        const reader = new FileReader();
+// inpFile.addEventListener("change", () => {
+//     const file = this.files[0];
+//     if (file) {
+//         const reader = new FileReader();
 
-        reader.addEventListener("load", function () {
-            // console.log(this.result);
-            previewImage.style.display = "block";
-            previewImage.setAttribute("src", this.result);
-            rawImage.setAttribute("src", this.result);
-            console.log("previewImage.setAttribute(src, this.result); "+previewImage.src);
-        });
+//         reader.addEventListener("load", () => {
+//             console.log(this.result);
 
-        reader.readAsDataURL(file);
-    } else {
-        previewImage.style.display = null;
-        previewImage.setAttribute("src", "./processing.png");
-        rawImage.setAttribute("src", "./processing.png");
-        console.log("previewImage.src "+previewImage.src);
-    }
-});
+//             previewImage.style.display = "block";
+//             previewImage.setAttribute("src", this.result);
+//             rawImage.setAttribute("src", this.result);
+//             console.log("previewImage.setAttribute(src, this.result); " + previewImage.src);
+//         });
+
+//         reader.readAsDataURL(file);
+//     } else {
+//         previewImage.style.display = null;
+//         previewImage.setAttribute("src", "./processing.png");
+//         rawImage.setAttribute("src", "./processing.png");
+//         console.log("previewImage.src " + previewImage.src);
+//     }
+// });
 
 // Result Image change function
 //      called when respose is received
 //      handles response image and creates URI
 //      sets result count text, result image source
-var resultImageChange = function (resultJson) {
+function resultImageChange(resultJson) {
     if (resultJson) {
         resultDefaultText.innerHTML = resultJson["count"];
         //resultImage.style.display = "block";
         let bytestring = resultJson["outputImage"];
-        let image = bytestring.split('\'')[1];
-        image = 'data:image/jpeg;base64,' + image;
+        let image = bytestring.split("\"")[1];
+        image = "data:image/jpeg;base64," + image;
         resultImage.setAttribute("src", image);
     } else {
         resultDefaultText.style.display = null;
@@ -59,26 +60,26 @@ var resultImageChange = function (resultJson) {
 
 // HTTP POST request
 //      called on showResults function
-var postRequest = function () {
-    var Http = new XMLHttpRequest();   
+function postRequest() {
+    var Http = new XMLHttpRequest();
     var requestUrl = baseUrl;
     var requestBody = JSON.stringify({});
-    console.log("previewImage.src: "+ previewImage.src)
+    console.log("previewImage.src: " + previewImage.src)
 
     // Setting request url
-    if (inpUrl.value){
+    if (inpUrl.value) {
         requestUrl = inpUrl.value;
     }
 
     // Setting request data
-    if (!(previewImage.src.includes("processing.png")) ){
-        requestBody = { 'inputImage': encodeURIComponent(previewImage.src)};
+    if (!(previewImage.src.includes("processing.png"))) {
+        requestBody = { "inputImage": encodeURIComponent(previewImage.src) };
         requestBody = JSON.stringify(requestBody);
         //requestBody = "inputImage="+encodeURIComponent(previewImage.src);
     }
 
     // Sending request
-    console.log("requestBody: "+ JSON.stringify(requestBody));
+    console.log("requestBody: " + JSON.stringify(requestBody));
 
     Http.open("POST", requestUrl);
     //Http.withCredentials = true;
@@ -86,28 +87,28 @@ var postRequest = function () {
     Http.send(requestBody);
 
     // Setting response
-    Http.onreadystatechange = function () {
+    Http.onreadystatechange = () => {
         if (this.readyState == 4 && this.status == 200) {
             var resultJson = JSON.parse(Http.response);
             resultImageChange(resultJson);
-            console.log("get request finished: "+resultJson["name"]);
+            console.log("get request finished: " + resultJson["name"]);
         }
     }
 };
 
 // Function to show results wrapper and call http request function
 //      called onclick of input submit tag
-var showResults = function () {
+function showResults() {
 
     //getRequest();
     postRequest();
 
-    inputCard.style.display = 'none';
-    outputCard.style.display = 'block';
+    inputCard.style.display = "none";
+    outputCard.style.display = "block";
 }
 
 // Funtion to reset everything possible
-var resetResults = function () {
+function resetResults() {
 
     resultDefaultText.innerHTML = "";
     previewImage.style.display = null;
@@ -118,8 +119,8 @@ var resetResults = function () {
     previewImage.style.display = null;
     previewImage.setAttribute("src", "./processing.png");
 
-    inputCard.style.display = 'block';
-    outputCard.style.display = 'none';
+    inputCard.style.display = "block";
+    outputCard.style.display = "none";
 }
 
 /*
