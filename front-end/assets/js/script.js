@@ -1,17 +1,17 @@
 // Element variables definitions
-const inpFile = document.getElementById("input-image"); //ok
-const previewImage = document.getElementById("preview-image"); //ok
-const rawImage = document.getElementById("raw-image"); //ok
-const resultImage = document.getElementById("processed-image"); //ok
-const resultDefaultText = document.getElementById("output-count"); //ok
-const inpUrl = document.getElementById("input-url"); //ok
-const inputCard = document.getElementById("input-card"); //ok
-const outputCard = document.getElementById("output-card"); //ok
+const inpFile = document.getElementById("input-image"), 
+previewImage = document.getElementById("preview-image"),
+rawImage = document.getElementById("raw-image"),
+resultImage = document.getElementById("processed-image"),
+resultDefaultText = document.getElementById("output-count"),
+inpUrl = document.getElementById("input-url"),
+inputCard = document.getElementById("input-card"),
+outputCard = document.getElementById("output-card")
 
-var resultJson;
+var resultJson
 //const baseUrl = 'http://127.0.0.1:5000/process';
 //const baseUrl = 'https://grain-count-flask-api.herokuapp.com/process'
-const baseUrl = 'https://grain-count-api.herokuapp.com/process'
+const baseUrl = 'https://n0jbrn04n2.execute-api.sa-east-1.amazonaws.com/V01/grain-api'
 
 // Event listener for uploaded image input tag
 //      encodes uploaded image
@@ -22,8 +22,7 @@ inpFile.addEventListener("change", function () {
         const reader = new FileReader();
 
         reader.addEventListener("load", function () {
-            console.log(this.result);
-
+            // console.log(this.result);
             previewImage.style.display = "block";
             previewImage.setAttribute("src", this.result);
             rawImage.setAttribute("src", this.result);
@@ -38,7 +37,6 @@ inpFile.addEventListener("change", function () {
         console.log("previewImage.src "+previewImage.src);
     }
 });
-
 
 // Result Image change function
 //      called when respose is received

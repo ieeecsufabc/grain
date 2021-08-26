@@ -53,16 +53,17 @@ dropArea.addEventListener("drop", (event) => {
 function showFile() {
     let fileType = file.type
 
-    let validExtensions = ["image/jpeg", "image/jpg", "image/png"]; // adicionando algumas extensões válidas de imagem no array
+    let validExtensions = ["image/jpeg", "image/jpg", "image/png"];
 
     if (validExtensions.includes(fileType)) { // se o arquivo selecionando pelo usuário é uma imagem
         subtitle.textContent = $('.check').is(":checked") ? "Chosen image" : "Imagem escolhida"
         dropArea.classList.add('active') // ativa o tipo de contorno sólido
+        // let buttonRemove = `<div id="remove-image"><i class="fas fa-times"></i></div>`;
         let fileReader = new FileReader(); // criando objeto de new FileReader
         fileReader.onload = () => {
             let fileURL = fileReader.result; // passando a fonte do arquivo do usuário na var fileURL
             let imgTag = `<img src="${fileURL}" alt="Imagem de micrografia">`; // criando uma tag img e passando a fonte do arquivo selecionado pelo usuário dentro do atributo src
-            dropArea.innerHTML = imgTag; // adicionando a tag img criada dentro do container dropAreadropArea container
+            dropArea.innerHTML = imgTag; // adicionando a tag img criada dentro do container dropArea
         }
         fileReader.readAsDataURL(file);
     } else {

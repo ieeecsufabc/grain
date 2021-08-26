@@ -14,13 +14,10 @@
 
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/ico" href="./assets/imgs/favicon.ico">
-
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
-
-    <!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
+    <!-- Style -->
     <link rel="stylesheet" href="./assets/css/style.css">
-
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
@@ -30,19 +27,25 @@
     <header>
         <div class="general-box">
             <nav>
-                <div id="logo-ieee">
-                    <img src="./assets/imgs/IEEE UFABC logo novo 2.png" alt="Logo IEEE UFABC">
-                </div>
+                <a href="/front-end/">
+                    <div id="logo-ieee">
+                        <img src="./assets/imgs/IEEE UFABC logo novo 2.png" alt="Logo IEEE UFABC">
+                    </div>
+                </a>
 
                 <div>
                     <ul id="nav-links">
-                        <li><a href="" data-localize="navbar.about"></a></li>
-                        <li><a href="" data-localize="navbar.help"></a></li>
+                        <li>
+                            <a href="./about.html" data-localize="navbar.about"></a>
+                        </li>
+                        <li>
+                            <a href="https://github.com/ieeecsufabc/grain/issues/new" data-localize="navbar.help"></a>
+                        </li>
                     </ul>
 
                     <div class="change-language">
                         <span class="pt">PT</span>
-                        <input type="checkbox" name="" id="" class="check">
+                        <input type="checkbox" name="" id="language-input" class="check">
                         <span class="en">EN</span>
                     </div>
                 </div>
@@ -52,61 +55,62 @@
 
     <main>
         <div class="box">
-            <!-- equivalente ao <div class="interface"> -->
+            <!-- Box para input de imagem -->
             <div class="upload-image" id="input-card">
-                <!-- equivalente ao <div class="wrapper" id="input-card"> -->
                 <h2 data-localize="analysis.analyse"></h2>
-
                 <h3 class="subtitle" data-localize="analysis.subtitle"></h3>
-
+                <!-- <div id="remove-image"><i class="fas fa-times"></i></div> -->
+                <!-- Área de "arrastar e soltar" -->
                 <div class="drag-area">
-                    <!-- equivalente ao <div class="input-form"> -->
                     <div class="icon">
                         <i class="fas fa-cloud-upload-alt"></i>
                     </div>
-                    <h3 class="legend1" data-localize="analysis.draganddrop">Arraste e solte aqui</h3>
-                    <span class="or" data-localize="analysis.draganddrop2">OU</span>
+                    <h3 class="legend1" data-localize="analysis.draganddrop"></h3>
+                    <span class="or" data-localize="analysis.draganddrop2"></span>
                     <!-- <label for="image" class="sr-only">Select image</label> Facilita acessibilidade -->
                     <button class="select-button">
                         <span data-localize="analysis.select"></span>
                     </button>
-                    <input class="input-upload" type="file" name="" id="image" hidden>
-                    <!-- equivalente ao <input type="file" id="input-image" name="input-image" accept=".png, .jpg, .jpeg" /> -->
+                    <input class="input-upload" type="file" name="input-image" id="input-image" hidden>
                 </div>
 
-                <!-- <img src="./processing.png" class="process-image" id="preview-image" /> -->
-                <!-- <input type="text" id="input-url" name="input-url" style="display: none" /> -->
+                <!-- <img src="./assets/imgs/loading.gif" class="process-image" id="preview-image"> -->
+                <input type="text" id="input-url" name="input-url" style="display: none">
 
-                <button type="submit" class="button-submit">
+                <button type="submit" class="button-submit" id="input-submit" onclick="showResults()">
                     <i class="fas fa-search"></i>
                     <span data-localize="analysis.analyse"></span>
                 </button>
-                <!-- equivalente ao <label id="input-submit" style="cursor: pointer;" onclick="showResults()" data-localize="analysis.send"></label> -->
             </div>
 
-            <!-- <div class="wrapper" id="output-card">
-                <h1 class="process-title" data-localize="analysis.results"></h1>
+            <!-- Box com o output -->
+            <div class="download-image" id="output-card">
+                <h2 data-localize="analysis.results"></h2>
                 <div class="output-content">
-                    <img src="./processing.png" class="process-image" id="raw-image" />
-                    <img src="./processing.png" class="process-image" id="processed-image" />
+                    <img src="./assets/imgs/loading.gif" class="process-image" id="raw-image">
+                    <img src="./assets/imgs/loading.gif" class="process-image" id="processed-image">
                     <div class="output-text-wrapper">
-                        <p class="output-text"> <b data-localize="analysis.number"></b> <span id="output-count"></span>
-                        </p> -->
-            <!-- 
+                        <p class="output-text">
+                            <b data-localize="analysis.number"></b> <span id="output-count"></span>
+                        </p>
+                        <!-- 
                         <p class="output-text"><b>Tamanho médio: </b></p>
                         <p class="output-text"><b>Densidade: </b></p>
                          -->
-            <!-- </div>
-                    <label id="input-submit" class="output-text" style="cursor: pointer;" onclick="resetResults()"
-                        data-localize="analysis.again"></label>
+                    </div>
                 </div>
-            </div> -->
+
+                <button type="submit" class="button-submit" id="input-submit" onclick="resetResults()">
+                    <i class="fas fa-search"></i>
+                    <span data-localize="analysis.again"></span>
+                </button>
+            </div>
 
         </div>
     </main>
 
     <footer>
-        <img src="./assets/imgs/logo-ieee.png" alt="Logo IEEE UFABC">
+        <img src=" ./assets/imgs/logo-ieee.png" alt="Logo IEEE UFABC">
         <p data-localize="footer.copyright"></p>
     </footer>
 
@@ -116,7 +120,7 @@
         <p data-localize="cookies.description"></p>
 
         <!-- <a href="#" class="more-info">More information</a> -->
-        <a href="#" class="button-accept" data-localize="cookies.button"></a>
+        <a href="#" class="button-accept" data-localize="cookies.button" onclick="disableCookiePopup()"></a>
     </div>
 
     <!-- Alerta para upload de arquivo com extensão não permitida -->
