@@ -62,7 +62,7 @@ function showFile() {
         let fileReader = new FileReader(); // criando objeto de new FileReader
         fileReader.onload = () => {
             let fileURL = fileReader.result; // passando a fonte do arquivo do usuário na var fileURL
-            let imgTag = `<img src="${fileURL}" alt="Imagem de micrografia">`; // criando uma tag img e passando a fonte do arquivo selecionado pelo usuário dentro do atributo src
+            let imgTag = `<img src="${fileURL}" alt="Imagem de micrografia" id="preview-image">`; // criando uma tag img e passando a fonte do arquivo selecionado pelo usuário dentro do atributo src
             dropArea.innerHTML = imgTag; // adicionando a tag img criada dentro do container dropArea
         }
         fileReader.readAsDataURL(file);

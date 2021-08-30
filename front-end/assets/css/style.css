@@ -248,11 +248,6 @@ header .general-box nav div:nth-child(2) {
   height: 250px;
 }
 
-#preview-image {
-  display: none;
-  width: 100px;
-}
-
 .button-submit {
   width: 130px;
   border: none;
@@ -474,12 +469,6 @@ footer img {
   height: 250px;
   margin: 25px 12.5px 12.5px 25px;
   border: 1px solid lightgray;
-}
-
-#preview-image {
-  display: none;
-  width: 200px;
-  height: 200px;
 }
 
 #output-card {

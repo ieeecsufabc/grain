@@ -1,6 +1,5 @@
 // Element variables definitions
-const inpFile = document.getElementById("input-image"), 
-previewImage = document.getElementById("preview-image"),
+const inpFile = document.getElementById("input-image"),
 rawImage = document.getElementById("raw-image"),
 resultImage = document.getElementById("processed-image"),
 resultDefaultText = document.getElementById("output-count"),
@@ -8,36 +7,10 @@ inpUrl = document.getElementById("input-url"),
 inputCard = document.getElementById("input-card"),
 outputCard = document.getElementById("output-card")
 
-var resultJson
+var resultJson, previewImage
 //const baseUrl = 'http://127.0.0.1:5000/process';
-//const baseUrl = 'https://grain-count-flask-api.herokuapp.com/process'
+//const baseUrl = 'https://grain-count-api.herokuapp.com/process'
 const baseUrl = 'https://n0jbrn04n2.execute-api.sa-east-1.amazonaws.com/V01/grain-api'
-
-// Event listener for uploaded image input tag
-//      encodes uploaded image
-//      set preview image and raw image sources
-// inpFile.addEventListener("change", () => {
-//     const file = this.files[0];
-//     if (file) {
-//         const reader = new FileReader();
-
-//         reader.addEventListener("load", () => {
-//             console.log(this.result);
-
-//             previewImage.style.display = "block";
-//             previewImage.setAttribute("src", this.result);
-//             rawImage.setAttribute("src", this.result);
-//             console.log("previewImage.setAttribute(src, this.result); " + previewImage.src);
-//         });
-
-//         reader.readAsDataURL(file);
-//     } else {
-//         previewImage.style.display = null;
-//         previewImage.setAttribute("src", "./processing.png");
-//         rawImage.setAttribute("src", "./processing.png");
-//         console.log("previewImage.src " + previewImage.src);
-//     }
-// });
 
 // Result Image change function
 //      called when respose is received
@@ -48,9 +21,10 @@ function resultImageChange(resultJson) {
         resultDefaultText.innerHTML = resultJson["count"];
         //resultImage.style.display = "block";
         let bytestring = resultJson["outputImage"];
-        let image = bytestring.split("\"")[1];
+        let image = bytestring.split("\'")[1];
         image = "data:image/jpeg;base64," + image;
         resultImage.setAttribute("src", image);
+        rawImage.setAttribute("src", previewImage.src);
     } else {
         resultDefaultText.style.display = null;
         resultImage.style.display = null;
@@ -61,6 +35,7 @@ function resultImageChange(resultJson) {
 // HTTP POST request
 //      called on showResults function
 function postRequest() {
+    previewImage = document.getElementById("preview-image")
     var Http = new XMLHttpRequest();
     var requestUrl = baseUrl;
     var requestBody = JSON.stringify({});
@@ -87,11 +62,15 @@ function postRequest() {
     Http.send(requestBody);
 
     // Setting response
-    Http.onreadystatechange = () => {
+    Http.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
             var resultJson = JSON.parse(Http.response);
+            console.log("Response: "+resultJson['body']);
+            if (!('inputImage' in resultJson)){
+                var resultJson = JSON.parse(resultJson['body']);
+            }
             resultImageChange(resultJson);
-            console.log("get request finished: " + resultJson["name"]);
+            console.log("get request finished: "+resultJson["name"]);
         }
     }
 };
