@@ -58,23 +58,32 @@
             <!-- Box para input de imagem -->
             <div class="upload-image" id="input-card">
                 <h2 data-localize="analysis.analyse"></h2>
+                <div id="remove-image">
+                    <i class="fas fa-arrow-left"></i> <!-- botão de remover imagem -->
+                </div>
                 <h3 class="subtitle" data-localize="analysis.subtitle"></h3>
-                <!-- <div id="remove-image"><i class="fas fa-times"></i></div> -->
+
                 <!-- Área de "arrastar e soltar" -->
                 <div class="drag-area">
-                    <div class="icon">
-                        <i class="fas fa-cloud-upload-alt"></i>
+
+                    <div id="drag-elements">
+                        <div class="icon">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                        </div>
+
+                        <h3 class="legend1" data-localize="analysis.draganddrop"></h3>
+
+                        <span class="or" data-localize="analysis.draganddrop2"></span>
+
+                        <button class="select-button">
+                            <span data-localize="analysis.select"></span>
+                        </button>
+
+                        <input class="input-upload" type="file" name="input-image" id="input-image" hidden>
                     </div>
-                    <h3 class="legend1" data-localize="analysis.draganddrop"></h3>
-                    <span class="or" data-localize="analysis.draganddrop2"></span>
-                    <!-- <label for="image" class="sr-only">Select image</label> Facilita acessibilidade -->
-                    <button class="select-button">
-                        <span data-localize="analysis.select"></span>
-                    </button>
-                    <input class="input-upload" type="file" name="input-image" id="input-image" hidden>
+
                 </div>
 
-                <!-- <img src="./assets/imgs/loading.gif" class="process-image" id="preview-image"> -->
                 <input type="text" id="input-url" name="input-url" style="display: none">
 
                 <button type="submit" class="button-submit" id="input-submit" onclick="showResults()">

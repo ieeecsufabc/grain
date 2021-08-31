@@ -155,7 +155,7 @@ header .general-box nav div:nth-child(2) {
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* position: relative; */
+  position: relative;
 }
 
 .box .upload-image h2,
@@ -175,12 +175,19 @@ header .general-box nav div:nth-child(2) {
   margin-top: 1em;
 }
 
-/* .box .upload-image #remove-image {
+.box .upload-image #remove-image {
   position: absolute;
-  right: 10px;
-  top: 70px;
+  left: 20px;
+  top: 80px;
+
   cursor: pointer;
-} */
+  display: none;
+  color: black;
+}
+
+.box .upload-image #remove-image i:hover {
+  color: var(--azul-ieee);
+}
 
 /* Drag & Drop Image ================================================================ */
 .drag-area {
@@ -189,7 +196,9 @@ header .general-box nav div:nth-child(2) {
   margin: 1em;
   border: 2px dashed var(--azul-ieee);
   border-radius: 16px;
+}
 
+.drag-area #drag-elements {
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -199,30 +208,30 @@ header .general-box nav div:nth-child(2) {
   border: 2px solid var(--azul-ieee);
 }
 
-.drag-area .icon {
+.drag-area #drag-elements .icon {
   font-size: 80px;
   color: var(--light-gray);
   transition: 0.5s;
 }
 
-.drag-area .icon:hover {
+.drag-area #drag-elements .icon:hover {
   transform: translateY(-5px);
 }
 
-.drag-area h3 {
+.drag-area #drag-elements h3 {
   font-size: 1em;
   font-weight: 400;
   color: var(--dark-gray);
 }
 
-.drag-area span.or {
+.drag-area #drag-elements span.or {
   font-size: 0.8em;
   font-weight: bold;
   margin: 1em 0;
   color: var(--dark-gray);
 }
 
-.drag-area button {
+.drag-area #drag-elements button {
   outline-style: none;
   width: 120px;
   border: 2px solid var(--azul-ieee);

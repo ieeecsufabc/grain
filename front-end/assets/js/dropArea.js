@@ -1,14 +1,15 @@
 // selecionando todos os elementos necessários
-const dropArea = document.querySelector('.drag-area'),
+const dropArea = document.querySelector('#drag-elements'),
 dragText = dropArea.querySelector('.legend1'),
 button = dropArea.querySelector('.select-button'),
-input = dropArea.querySelector('.input-upload')
+input = dropArea.querySelector('.input-upload'),
+back = document.querySelector('#remove-image')
 
 let subtitle = document.querySelector('.subtitle')
 let file // esta é uma variável global e nós usaremos dentro de várias funções
 
 button.onclick = () => {
-    input.click() // se o usuário clicar no botão então o input também será clicado
+    input.click() // se o usuário clicar no botão então o input também será "clicado"
 }
 
 input.addEventListener("change", function(){
@@ -16,7 +17,6 @@ input.addEventListener("change", function(){
     // [0] significa que se o usuário selecionar múltiplos arquivos, selecionaremos apenas o primeiro
     file = this.files[0]
     showFile()
-    
 })
 
 // se o usuário arrastar o arquivo sobre o DragArea
@@ -55,17 +55,20 @@ function showFile() {
 
     let validExtensions = ["image/jpeg", "image/jpg", "image/png"];
 
-    if (validExtensions.includes(fileType)) { // se o arquivo selecionando pelo usuário é uma imagem
+    if (validExtensions.includes(fileType)) {
         subtitle.textContent = $('.check').is(":checked") ? "Chosen image" : "Imagem escolhida"
-        dropArea.classList.add('active') // ativa o tipo de contorno sólido
-        // let buttonRemove = `<div id="remove-image"><i class="fas fa-times"></i></div>`;
+        $(".drag-area").addClass("active")
+        $("#drag-elements").css("display", "none")
+        
         let fileReader = new FileReader(); // criando objeto de new FileReader
         fileReader.onload = () => {
-            let fileURL = fileReader.result; // passando a fonte do arquivo do usuário na var fileURL
-            let imgTag = `<img src="${fileURL}" alt="Imagem de micrografia" id="preview-image">`; // criando uma tag img e passando a fonte do arquivo selecionado pelo usuário dentro do atributo src
-            dropArea.innerHTML = imgTag; // adicionando a tag img criada dentro do container dropArea
+            let fileURL = fileReader.result // passando a fonte do arquivo do usuário na var fileURL
+            let imgTag = `<img src="${fileURL}" alt="Imagem de micrografia" id="preview-image">`
+            $(".drag-area").append(imgTag) // adicionando a tag img criada dentro do container dropArea
         }
         fileReader.readAsDataURL(file);
+
+        $("#remove-image").css("display", "block");
     } else {
         $('.alert').removeClass("hide");
         $('.alert').addClass("show");
@@ -77,4 +80,17 @@ function showFile() {
             $('.alert').removeClass("show");
         });
     }
+}
+
+$("#remove-image").click(function() {
+    removeFile()
+})
+
+// função de remover imagem
+function removeFile() {
+    subtitle.textContent = $('.check').is(":checked") ? "Choose the image" : "Escolha a imagem"
+    $(".drag-area").removeClass("active")
+    $("#preview-image").remove()
+    $("#drag-elements").css("display", "flex")
+    $("#remove-image").css("display", "none");
 }
