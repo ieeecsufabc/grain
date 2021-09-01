@@ -95,9 +95,20 @@
             <!-- Box com o output -->
             <div class="download-image" id="output-card">
                 <h2 data-localize="analysis.results"></h2>
+
                 <div class="output-content">
-                    <img src="./assets/imgs/loading.gif" class="process-image" id="raw-image">
-                    <img src="./assets/imgs/loading.gif" class="process-image" id="processed-image">
+                    <div>
+                        <figure>
+                            <img src="./assets/imgs/loading.gif" class="process-image" id="raw-image">
+                            <figcaption data-localize="analysis.figcaption1"></figcaption>
+                        </figure>
+
+                        <figure>
+                            <img src="./assets/imgs/loading.gif" class="process-image" id="processed-image">
+                            <figcaption data-localize="analysis.figcaption2"></figcaption>
+                        </figure>
+                    </div>
+
                     <div class="output-text-wrapper">
                         <p class="output-text">
                             <b data-localize="analysis.number"></b> <span id="output-count"></span>
@@ -109,7 +120,7 @@
                     </div>
                 </div>
 
-                <button type="submit" class="button-submit" id="input-submit" onclick="resetResults()">
+                <button type="submit" class="button-submit button-again" onclick="resetResults()">
                     <i class="fas fa-search"></i>
                     <span data-localize="analysis.again"></span>
                 </button>

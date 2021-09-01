@@ -84,6 +84,7 @@ function showResults() {
 
     inputCard.style.display = "none";
     outputCard.style.display = "block";
+    $('.box').css('max-width', '600px');
 }
 
 // Funtion to reset everything possible

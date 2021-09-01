@@ -25,6 +25,8 @@
         "draganddrop2":"OR",
         "send":"Send",
         "results":"Results",
+        "figcaption1":"Original",
+        "figcaption2":"Processed",
         "number":"Number of grains:",
         "again":"Analyse new image",
         "select":"Select..."

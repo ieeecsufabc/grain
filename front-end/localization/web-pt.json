@@ -25,6 +25,8 @@
         "draganddrop2":"OU",
         "send":"Enviar",
         "results":"Resultados",
+        "figcaption1":"Original",
+        "figcaption2":"Processada",
         "number":"Número de grãos:",
         "again":"Analisar outra imagem",
         "select":"Escolher..."

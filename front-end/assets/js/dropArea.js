@@ -9,10 +9,12 @@ let subtitle = document.querySelector('.subtitle')
 let file // esta é uma variável global e nós usaremos dentro de várias funções
 
 button.onclick = () => {
+    console.log("Clicou")
     input.click() // se o usuário clicar no botão então o input também será "clicado"
 }
 
 input.addEventListener("change", function(){
+    console.log("Entrou")
     // obter o arquivo de seleção do usuário
     // [0] significa que se o usuário selecionar múltiplos arquivos, selecionaremos apenas o primeiro
     file = this.files[0]
@@ -22,7 +24,7 @@ input.addEventListener("change", function(){
 // se o usuário arrastar o arquivo sobre o DragArea
 dropArea.addEventListener("dragover", (event) => {
     event.preventDefault() // evitando comportamento padrão
-    dropArea.classList.add('active') // ativa o tipo de contorno sólido
+    $(".drag-area").addClass("active") // ativa o tipo de contorno sólido
     if($('.check').is(":checked")){
         dragText.textContent = "Release to upload"
     } else {
@@ -32,7 +34,7 @@ dropArea.addEventListener("dragover", (event) => {
 
 // se o usuário sair da área de DragArea com o arquivo arrastado
 dropArea.addEventListener("dragleave", () => {
-    dropArea.classList.remove('active')
+    $(".drag-area").removeClass("active")
     if($('.check').is(":checked")){
         dragText.textContent = "Drag & Drop here"
     } else {
@@ -73,7 +75,7 @@ function showFile() {
         $('.alert').removeClass("hide");
         $('.alert').addClass("show");
         $('.alert').addClass("showAlert");
-        dropArea.classList.remove("active");
+        $(".drag-area").removeClass("active")
         dragText.textContent = $('.check').is(":checked") ? "Drag & Drop here" : "Arraste e solte aqui"
         $('.close-btn').click(function(){
             $('.alert').addClass("hide");
