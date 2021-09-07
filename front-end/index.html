@@ -16,8 +16,9 @@
     <link rel="shortcut icon" type="image/ico" href="./assets/imgs/favicon.ico">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <!-- Style -->
-    <link rel="stylesheet" href="./assets/css/style.css">
+    <!-- Styles -->
+    <link rel="stylesheet" href="./assets/css/desktop-style.css">
+    <link rel="stylesheet" href="./assets/css/mobile-style.css">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 </head>
@@ -29,11 +30,11 @@
             <nav>
                 <a href="/front-end/">
                     <div id="logo-ieee">
-                        <img src="./assets/imgs/IEEE UFABC logo novo 2.png" alt="Logo IEEE UFABC">
+                        <img src="./assets/imgs/logo-ieee-ufabc.png" alt="Logo IEEE UFABC">
                     </div>
                 </a>
 
-                <div>
+                <div id="menu-nav" class="active">
                     <ul id="nav-links">
                         <li>
                             <a href="./about.html" data-localize="navbar.about"></a>
@@ -49,6 +50,8 @@
                         <span class="en">EN</span>
                     </div>
                 </div>
+
+                <a class="toggle-nav" href="#">&#9776;</a>
             </nav>
         </div>
     </header>
@@ -130,7 +133,7 @@
     </main>
 
     <footer>
-        <img src=" ./assets/imgs/logo-ieee.png" alt="Logo IEEE UFABC">
+        <img src=" ./assets/imgs/logo-ieee-gray.png" alt="Logo IEEE UFABC">
         <p data-localize="footer.copyright"></p>
     </footer>
 
@@ -170,6 +173,8 @@
     <script src="./assets/js/dropArea.js"></script>
     <!-- Processo de análise -->
     <script src="./assets/js/script.js"></script>
+    <!-- Menu responsivo -->
+    <script src="./assets/js/menu-mobile.js"></script>
 
 </body>
 
