@@ -83,7 +83,7 @@ function showResults() {
     postRequest();
 
     inputCard.style.display = "none";
-    outputCard.style.display = "block";
+    outputCard.style.display = "flex";
     $('.box').css('max-width', '600px');
 }
 
@@ -99,7 +99,13 @@ function resetResults() {
     previewImage.style.display = null;
     previewImage.setAttribute("src", "./processing.png");
 
-    inputCard.style.display = "block";
+    inputCard.style.display = "flex";
+    document.querySelector('.subtitle').textContent = $('.check').is(":checked") ? "Choose the image" : "Escolha a imagem";
+    $(".drag-area").removeClass("active")
+    $("#preview-image").remove()
+    $("#drag-elements").css("display", "flex")
+    $("#remove-image").css("display", "none");
+    $('.box').css('max-width', '500px');
     outputCard.style.display = "none";
 }
 
