@@ -1,42 +1,42 @@
 {
-    "title":"Contagem de Grãos",
-    "navbar":{
-        "home":"Home",
-        "analysis":"Iniciar",
-        "about":"Sobre",
-        "bugreport":"Reportar bug",
-        "help":"Ajuda"
+    "title": "Contagem de Grãos",
+    "navbar": {
+        "home": "Home",
+        "analysis": "Iniciar",
+        "about": "Sobre",
+        "bugreport": "Reportar bug",
+        "help": "Ajuda"
     },
-    "home":{
-        "title":"Página Inicial",
-        "description":"Determinação de número de grãos em imagens de micrografias de metais."
+    "home": {
+        "title": "Página Inicial",
+        "description": "Determinação de número de grãos em imagens de micrografias de metais."
     },
-    "about":{
-        "title":"Mais Informações",
-        "subtitle":"Um projeto da IEEE Computer Society UFABC + Electronics Packaging Society UFABC",
+    "about": {
+        "title": "Mais Informações",
+        "subtitle": "Um projeto da IEEE Computer Society UFABC + Electronics Packaging Society UFABC",
         "text": "Esse projeto consiste na utilização de técnicas de Processamento de Imagens para realizar a determinação de tamanho de grão para imagens de micrografia de metais. Essa tarefa é atualmente realizada manualmente por todos os estudantes de Engenharia na UFABC, em especial os de Engenharia de Materias. O objetivo final é a criação de um site que realize essa tarefa automaticamente e com precisão."
     },
-    "analysis":{
-        "title":"Análise de Imagem",
-        "analyse":"Analisar",
+    "analysis": {
+        "title": "Análise de Imagem",
+        "analyse": "Analisar",
         "subtitle": "Escolha a imagem",
         "subtitle2": "Imagem escolhida",
         "draganddrop": "Arraste e solte aqui",
-        "draganddrop2":"OU",
-        "send":"Enviar",
-        "results":"Resultados",
-        "figcaption1":"Original",
-        "figcaption2":"Processada",
-        "number":"Número de grãos:",
-        "again":"Analisar outra imagem",
-        "select":"Escolher..."
+        "draganddrop2": "OU",
+        "send": "Enviar",
+        "results": "Resultados",
+        "figcaption1": "Original",
+        "figcaption2": "Processada",
+        "number": "Número de grãos:",
+        "again": "Analisar outra imagem",
+        "select": "Escolher..."
     },
-    "cookies":{
-        "title":"Cookies & Privacidade",
-        "description":"Este website utiliza cookies para garantir que você obtenha a melhor experiência em nosso website.",
-        "button":"Aceitar"
+    "cookies": {
+        "title": "Cookies & Privacidade",
+        "description": "Este site usa cookies para armazenar seu idioma de preferência.",
+        "button": "Aceitar"
     },
-    "footer":{
-        "copyright":"© 2021 Copyright - Todos os direitos reservados"
+    "footer": {
+        "copyright": "© 2021 Copyright - Todos os direitos reservados"
     }
 }

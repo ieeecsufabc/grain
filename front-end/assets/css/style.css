@@ -144,8 +144,8 @@ header .general-box nav div:nth-child(2) {
 .box {
   max-width: 500px;
   margin: 0 auto;
-  margin-top: 20vh;
-
+  margin-top: 30vh;
+  margin-bottom: 20vh;
   /* border: 1px solid var(--light-gray); */
   box-shadow: 10px 10px 32px rgba(0, 0, 0, 0.37);
   border-radius: 16px;
