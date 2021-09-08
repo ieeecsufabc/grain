@@ -193,7 +193,7 @@ header .general-box nav div:nth-child(2) {
 /* Drag & Drop Image ================================================================ */
 .drag-area {
   height: 250px;
-  width: 300px;
+  width: 65%;
   margin: 1em;
   border: 2px dashed var(--azul-ieee);
   border-radius: 16px;
@@ -256,6 +256,7 @@ header .general-box nav div:nth-child(2) {
 .process-image {
   width: 250px;
   height: 250px;
+  margin: 20px;
 }
 
 .button-submit {
@@ -287,10 +288,6 @@ header .general-box nav div:nth-child(2) {
   display: none;
   background-color: white;
   border-radius: 16px;
-
-  display: flex;
-  flex-direction: column;
-  align-items: center;
 }
 
 .output-content {
@@ -369,7 +366,6 @@ footer img {
   right: 0;
   left: 0;
   bottom: 0;
-  /* display: none; */
 }
 
 .cookies-container h3 {
@@ -494,25 +490,6 @@ footer img {
 .alert .fa-times {
   color: #006090;
   font-size: 18px;
-}
-
-/* =================================================================== PEGANDO DO OUTRO CSS */
-.process-image {
-  width: 250px;
-  height: 250px;
-  margin: 20px;
-  border: 1px solid lightgray;
-}
-
-#output-card {
-  width: 600px;
-  display: none;
-  background-color: white;
-}
-
-.output-text {
-  text-align: left;
-  margin-left: 37.5px;
 }
 
 /* =================================================================== About */

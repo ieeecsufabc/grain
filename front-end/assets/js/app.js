@@ -36,14 +36,20 @@ $(document).ready(() => {
     // Carrega cookie (string "language=...")
     let language = getCookie("language");
     // Salva o valor do cookie em uma variável language
-    console.log("Language:" + language)
+    console.log("Language: " + language)
 
     if (language == "en") {
         // Localização forçada
         $("[data-localize]").localize(localizationPath, { language: "en" })
+        $(".pt").removeClass("checked")
+        $(".en").addClass("checked")
+        $(".check").prop('checked', true)
     } else if (language == "pt") {
         // Localização forçada
         $("[data-localize]").localize(localizationPath, { language: "pt" })
+        $(".en").removeClass("checked")
+        $(".pt").addClass("checked")
+        $(".check").prop('checked', false)
     } else {
         // Localização padrão é pt
         console.log("localization not found")
@@ -53,17 +59,16 @@ $(document).ready(() => {
     }
 
     // Mudança de localização com base no botão
-    if (!$(".check").is(":checked")) {
-        // Localização forçada
-        $("[data-localize]").localize(localizationPath, { language: "pt" })
-        // Salva cookie
-        document.cookie = "language=pt;path=" + cookiePath;
-        $(".pt").addClass("checked")
-    }
+    // if (!$(".check").is(":checked")) {
+    //     // Localização forçada
+    //     $("[data-localize]").localize(localizationPath, { language: "pt" })
+    //     // Salva cookie
+    //     document.cookie = "language=pt;path=" + cookiePath;
+    //     $(".pt").addClass("checked")
+    // }
 
     $(".check").click(() => {
         if ($(".check").is(":checked")) {
-            $(".check").addClass("checkEN")
             // Localização forçada
             $("[data-localize]").localize(localizationPath, { language: "en" })
             // Salva cookie
@@ -83,6 +88,7 @@ $(document).ready(() => {
     document.querySelector(".cookies-container").style.display = (getCookie("acceptCookies") === "") ? "block" : "none";
 
     let acceptCookiesButton = document.querySelector(".button-accept");
+
     acceptCookiesButton.addEventListener("click", () => {
         console.log("Resultado: " + getCookie("acceptCookies"));
         let acceptCookies = getCookie("acceptCookies");
@@ -91,5 +97,4 @@ $(document).ready(() => {
         }
         document.querySelector(".cookies-container").style.display = "none";
     });
-
 });
