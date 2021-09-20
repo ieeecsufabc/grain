@@ -76,6 +76,7 @@ function showFile() {
         $('.alert').addClass("show");
         $('.alert').addClass("showAlert");
         $(".drag-area").removeClass("active")
+        input.value = ""
         dragText.textContent = $('.check').is(":checked") ? "Drag & Drop here" : "Arraste e solte aqui"
         $('.close-btn').click(function(){
             $('.alert').addClass("hide");
@@ -95,4 +96,5 @@ function removeFile() {
     $("#preview-image").remove()
     $("#drag-elements").css("display", "flex")
     $("#remove-image").css("display", "none");
+    input.value = ""
 }

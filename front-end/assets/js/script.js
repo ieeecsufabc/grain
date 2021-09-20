@@ -105,6 +105,7 @@ function resetResults() {
     $("#preview-image").remove()
     $("#drag-elements").css("display", "flex")
     $("#remove-image").css("display", "none");
+    $(".input-upload").value = "";
     $('.box').css('max-width', '500px');
     outputCard.style.display = "none";
 }

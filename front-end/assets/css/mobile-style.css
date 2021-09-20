@@ -71,9 +71,9 @@
     padding: 15px;
     display: inline-block;
     border-radius: 3px;
-    background: #00629b;
-    color: #fff;
-    font-size: 20px;
+    background: none;
+    color: #00629b;
+    font-size: 30px;
     font-weight: bold;
   }
 }
